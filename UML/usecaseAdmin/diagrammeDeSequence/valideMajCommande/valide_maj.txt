@@ -1,0 +1,43 @@
+@startuml
+'usecase "Valider les commandes et mettre à jour leur statut"
+
+actor Admin
+participant Commande
+participant "Base de données" as base
+participant Système
+
+
+                                         == Scénario principal : Valider une commande ==
+
+Admin -> Système : Sélectionne une commande à valider
+Système -> base : Récupère les informations de la commande
+base --> Système : Envoie les informations de la commande
+Système --> Admin : Affiche les détails de la commande
+Admin -> Système : Valide la commande
+Système -> base : Met à jour le statut de la commande (validée)
+Système --> Admin : Confirme la mise à jour de la commande
+
+
+                                       == Scénario facultatif 1 : Commande partiellement expédiée ==
+
+Admin -> Système : Vérifie le statut de la commande
+Système -> base : Récupère le statut de la commande
+base --> Système : Statut : "Partiellement expédiée"
+Système --> Admin : La commande est partiellement expédiée
+Admin -> Système : Marquer comme partiellement traitée
+Système -> base : Met à jour le statut de la commande (partiellement traitée)
+Système --> Admin : Confirme la mise à jour
+
+
+                                      == Scénario facultatif 2 : Problème avec la commande ==
+
+Admin -> Système : Sélectionne une commande
+Système -> base : Récupère les informations de la commande
+base --> Système : Problème détecté avec la commande
+Système --> Admin : Alerte problème (ex : rupture de stock)
+Admin -> Système : Met à jour le statut (en attente de résolution)
+Système -> base : Enregistre le nouveau statut de la commande
+Système --> Admin : Confirme la mise à jour du statut
+
+@enduml
+

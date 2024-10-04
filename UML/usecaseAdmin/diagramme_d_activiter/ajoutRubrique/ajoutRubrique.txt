@@ -1,0 +1,27 @@
+@startuml
+start
+
+:Sélectionne "Ajouter une rubrique/sous-rubrique";
+
+:Demande le nom de la rubrique/sous-rubrique;
+
+:Admin fournit le nom;
+
+:Vérifie si la rubrique/sous-rubrique existe déjà;
+
+if (Rubrique/Sous-rubrique existe déjà ?) then (oui)
+  :Affiche un message d'erreur "La rubrique/sous-rubrique existe déjà";
+else (non)
+  :Vérifie si le nom est valide;
+
+  if (Nom valide ?) then (non)
+    :Affiche un message d'erreur "Nom invalide, veuillez réessayer";
+  else (oui)
+    :Ajoute la nouvelle rubrique/sous-rubrique;
+    :Confirme l'ajout;
+  endif
+endif
+
+stop
+@enduml
+

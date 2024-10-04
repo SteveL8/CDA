@@ -1,3 +1,4 @@
+-- Active: 1722413444756@@127.0.0.1@3306@papyrus
 -- 1. Quelles sont les commandes du fournisseur 09120 ?
 select * 
 from entcom
@@ -348,5 +349,87 @@ from vente
 where codart = 'I100' and numfou = 120;
 
 select * from v_VentesI100Grobrigan;
+
+
+                      --Exercice 1 : création d'une procédure stockée sans paramètre
+
+--Créez la procédure stockée Lst_fournis correspondant à la requête n°2 afficher le code des fournisseurs pour lesquels une commande a été passée. --
+DELIMITER |
+create procedure Lst_fournis() 
+begin 
+     select distinct numfou from entcom;
+end |
+DELIMITER ;
+
+--Exécutez la pour vérifier qu’elle fonctionne conformément à votre attente.--
+call Lst_fournis;
+
+--Exécutez la commande SQL suivante pour obtenir des informations sur cette procédure stockée :--
+SHOW CREATE PROCEDURE Lst_fournis;
+
+
+                   --Exercice 2 : création d'une procédure stockée avec un paramètre en entrée
+
+--Créer la procédure stockée Lst_Commandes, qui liste les commandes ayant 
+--un libellé particulier dans le champ obscom (cette requête sera construite à partir de la requête n°11).
+DELIMITER |
+create procedure Lst_commande()
+begin
+select e.numcom, e.obscom, f.nomfou, p.libart, l.qtecde * l.priuni
+from entcom e
+join fournis f on f.numfou=e.numfou
+join ligcom l on l.numcom=e.numcom
+join produit p on l.codart=p.codart
+where obscom like '%urgent%';
+end |
+DELIMITER ;
+
+call Lst_commande ;
+
+
+
+                  --Exercice 3 : création d'une procédure stockée avec plusieurs paramètres
+
+--Créer la procédure stockée CA_ Fournisseur, qui pour un code fournisseur et une année entrée en paramètre, 
+--calcule et restitue le CA potentiel de ce fournisseur pour l'année souhaitée (cette requête sera construite à partir de la requête n°19). 
+DELIMITER |
+CREATE PROCEDURE CA_Fournisseur(IN numfou_param INT, IN annee_param INT)
+BEGIN
+    SELECT f.nomfou, SUM(l.qtecde * l.priuni) * 1.2 AS 'Total TTC'
+    FROM fournis f
+    JOIN entcom e ON e.numfou = f.numfou
+    JOIN ligcom l ON l.numcom = e.numcom
+    WHERE e.numfou = numfou_param
+      AND YEAR(e.datcom) = annee_param
+    GROUP BY f.nomfou
+    ORDER BY 2 DESC;
+END |
+DELIMITER ;
+
+CALL CA_Fournisseur(120, 2021);
+
+
+--Exercice 1 Transaction
+
+START TRANSACTION;
+
+SELECT nomfou FROM fournis WHERE numfou=120;
+
+UPDATE fournis  SET nomfou= 'GROSBRIGAND' WHERE numfou=120 
+
+
+SELECT nomfou FROM fournis WHERE numfou=120 
+
+COMMIT;
+
+SELECT nomfou FROM fournis WHERE numfou = 120;
+
+
+--Trigger
+ALTER TABLE vente ENGINE=InnoDB;
+
+
+
+
 
 

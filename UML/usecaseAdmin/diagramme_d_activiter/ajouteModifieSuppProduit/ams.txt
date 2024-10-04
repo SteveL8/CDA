@@ -1,0 +1,44 @@
+@startuml
+start
+
+:Admin veut gérer le catalogue;
+
+if (Ajouter un produit ?) then (Oui)
+    :Admin entre les informations du produit;
+    if (Informations complètes ?) then (Oui)
+        :Vérifier si le produit existe déjà;
+        if (Produit existe déjà ?) then (Non)
+            :Ajouter le produit dans la base de données;
+            :Produit ajouté avec succès;
+        else (Oui)
+            :Erreur : Le produit existe déjà;
+        endif
+    else (Non)
+        :Erreur : Informations incomplètes ou incorrectes;
+    endif
+else (Modifier ou Supprimer un produit ?)
+    if (Modifier un produit ?) then (Oui)
+        :Admin sélectionne un produit à modifier;
+        :Récupérer les informations actuelles du produit;
+        :Admin modifie les informations du produit;
+        if (Nouvelles informations complètes ?) then (Oui)
+            :Mettre à jour le produit dans la base de données;
+            :Produit modifié avec succès;
+        else (Non)
+            :Erreur : Informations incomplètes ou incorrectes;
+        endif
+    else (Supprimer un produit ?)
+        :Admin sélectionne un produit à supprimer;
+        :Demande de confirmation pour supprimer le produit;
+        if (Confirmation de suppression ?) then (Oui)
+            :Supprimer le produit dans la base de données;
+            :Produit supprimé avec succès;
+        else (Non)
+            :Suppression annulée;
+        endif
+    endif
+endif
+
+stop
+@enduml
+

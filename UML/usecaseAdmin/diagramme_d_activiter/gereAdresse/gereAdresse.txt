@@ -1,0 +1,48 @@
+@startuml
+start
+
+:Admin sélectionne le client;
+if (Adresse à ajouter ou modifier ?) then (Ajouter)
+    :Admin saisit la nouvelle adresse;
+    :Vérifie si l'adresse existe déjà;
+    if (Adresse existe déjà ?) then (Oui)
+        :Affiche "Adresse existe déjà";
+        stop
+    else (Non)
+        :Ajoute la nouvelle adresse dans la base;
+        :Confirme l'ajout de l'adresse;
+        stop
+    endif
+else (Modifier)
+    :Admin sélectionne l'adresse à modifier;
+    :Récupère les informations actuelles de l'adresse;
+    :Admin modifie les informations;
+    :Vérifie si la nouvelle adresse est déjà utilisée;
+    if (Adresse déjà utilisée ?) then (Oui)
+        :Affiche "Adresse déjà utilisée";
+        stop
+    else (Non)
+        :Met à jour l'adresse dans la base;
+        :Confirme la mise à jour de l'adresse;
+        stop
+    endif
+endif
+
+:Admin sélectionne une adresse à supprimer;
+if (Adresse liée à une commande en cours ?) then (Oui)
+    :Affiche "Impossible de supprimer l'adresse";
+    stop
+else (Non)
+    :Demande confirmation pour la suppression;
+    if (Confirmation suppression ?) then (Oui)
+        :Supprime l'adresse de la base;
+        :Confirme la suppression;
+        stop
+    else (Non)
+        :Annule la suppression;
+        stop
+    endif
+endif
+
+@enduml
+

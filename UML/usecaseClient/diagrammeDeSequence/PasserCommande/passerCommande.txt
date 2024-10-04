@@ -1,0 +1,67 @@
+@startuml
+'usecase de Client "Passer une commande"
+
+'actors list
+actor Client
+participant Panier
+participant "Base de données" as base
+participant Adresse_Livraison
+participant Adresse_Facturation
+participant Paiement
+participant Système
+
+
+                                             
+                                          ==Scénario principal : Passer une commande==
+
+Client -> Panier : Consulte et valide le panier
+Panier -> base : Vérifie la disponibilité des produits
+base --> Panier : Produits disponibles
+Client -> Adresse_Livraison : Fournit l'adresse de livraison
+Client -> Adresse_Facturation : Fournit l'adresse de facturation
+Client -> Paiement : Sélectionne le mode de paiement
+Paiement -> Système : Valide la transaction
+Système -> base : Enregistre la commande
+Système --> Client : Confirme la commande
+
+                                            ==Scénario Facultatif 1: Adresse de livraison manquante==
+
+Client -> Panier : Valide le panier
+Panier -> Système : Vérifie les informations
+Système --> Client : Adresse de livraison manquante
+Client -> Adresse_Livraison : Fournit l'adresse de livraison
+
+                                              ==Scénario Facultatif 2: Paiement échoué==
+
+Client -> Paiement : Sélectionne le mode de paiement
+Paiement -> Système : Valide la transaction
+Système --> Client : Paiement échoué, réessayer
+                                             == Scénario Facultatif 3: Produit en rupture de stock lors de la validation ==
+
+Client -> Panier : Valide le panier
+Panier -> base : Vérifie la disponibilité des produits
+base --> Panier : Produit en rupture de stock
+Panier --> Client : Produit en rupture, retirer ou attendre ?
+
+                                            == Scénario Facultatif 4: Adresse de facturation différente de l'adresse de livraison==
+
+Client -> Adresse_Livraison : Fournit l'adresse de livraison
+Système -> Client : Adresse de facturation identique ?
+Client -> Adresse_Facturation : Fournit une adresse de facturation différente
+
+                                           == Scénario Facultatif 5: Application d'une remise ou d'un code promo==
+
+Client -> Panier : Entre un code promo
+Panier -> Système : Vérifie la validité du code promo
+Système --> Panier : Code valide, applique la réduction
+Panier --> Client : Montant mis à jour avec la réduction
+
+                                          ==Scénario principal : Passer une commande avec plusieurs adresses de livraison==
+
+Client -> Panier : Valide le panier
+Panier -> Système : Livraison à plusieurs adresses ?
+Système -> Client : Demande une adresse pour chaque produit
+Client -> Adresse_Livraison : Fournit les adresses
+Système -> base : Enregistre la commande
+Système --> Client : Confirme la commande
+@enduml

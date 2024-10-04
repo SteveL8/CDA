@@ -1,0 +1,89 @@
+@startuml
+'usecase d'Admin "Gérer le catalogue (Rubrique/Sous-rubrique)"
+
+'actors list
+actor Admin
+participant catalogue
+participant RubriqueSousRubrique as rubrique
+participant baseDeDonnee as base
+participant systeme
+
+
+                                                          ==Scénario principal : "Ajouter une rubrique ou une sous-rubrique"==
+
+Admin -> catalogue : Sélectionne "Ajouter une rubrique/sous-rubrique"
+catalogue --> Admin : Demande le nom de la rubrique/sous-rubrique
+Admin -> catalogue : Fournit le nom
+catalogue -> base : Vérifie si la rubrique/sous-rubrique existe déjà
+base --> catalogue : Répond si la rubrique/sous-rubrique n'existe pas
+catalogue -> base: Ajoute la nouvelle rubrique/sous-rubrique
+catalogue --> Admin : Confirme l'ajout
+
+                                                         ==Scénario alternatif 1: " Rubrique/Sous-rubrique déjà existante"==
+
+Admin -> catalogue : Sélectionne "Ajouter une rubrique/sous-rubrique"
+catalogue --> Admin : Demande le nom de la rubrique/sous-rubrique
+Admin -> catalogue : Fournit le nom
+catalogue -> base : Vérifie si la rubrique/sous-rubrique existe déjà
+base --> catalogue : Indique que la rubrique/sous-rubrique existe déjà
+catalogue --> Admin : Affiche un message d'erreur "La rubrique/sous-rubrique existe déjà"
+
+                                                         ==Scénario alternatif 2: "Nom invalide"==
+
+Admin -> catalogue : Sélectionne "Ajouter une rubrique/sous-rubrique"
+catalogue --> Admin : Demande le nom de la rubrique/sous-rubrique
+Admin -> catalogue : Fournit le nom
+catalogue --> Admin : Affiche un message d'érreur "Nom invalide, veuillez réessayer"
+
+                                                        ==Scénario principal : "Modifier une rubrique ou une sous-rubrique"==
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue --> base : Récupère les informations actuelles
+base --> catalogue : Envoie les informations
+catalogue --> Admin : Affiche les informations actuelles
+Admin -> catalogue : Modifie les informations
+catalogue -> base : Met à jour les informations
+catalogue --> Admin : Confirme la mise à jour
+
+                                                       ===Scénario alternatif 1: "La rubrique/sous-rubrique n'existe pas"==
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue -> base : Vérifie l’existence
+base --> catalogue : Indique que la rubrique/sous-rubrique n’existe pas
+catalogue --> Admin : Affiche un message d’erreur "Rubrique/sous-rubrique non trouvée"
+
+                                                      ===Scénario alternatif 2: "Conflit de nom"==
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue --> base : Récupère les informations actuelles
+base --> catalogue : Envoie les informations
+catalogue --> Admin : Affiche les informations actuelles
+Admin -> catalogue : Modifie les informations
+catalogue -> base : Vérifie le nom
+base --> catalogue : Indique que le nom est déjà pris
+catalogue --> Admin : Affiche un message "Le nom de la rubrique existe déjà"
+
+                                                   ===Scénario principal : "Supprimer une rubrique ou une sous-rubrique"==
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue -> Admin : Demande une confirmation de suppression
+Admin -> catalogue : Confirme la suppression
+catalogue -> base: Supprime la rubrique/sous-rubrique
+catalogue -> Admin : Confirme la suppression
+
+                                                ===Scénario alternatif 1: "La rubrique/sous-rubrique est associée à des produits"==
+
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue -> base : Vérifie la présence de produits associés.
+base -> catalogue : Indique qu'il y a des produits dans cette rubrique/sous-rubrique.
+catalogue --> Admin : Affiche un message "Impossible de supprimer, des produits sont encore associés à cette rubrique/sous-rubrique".
+
+                                               ===Scénario alternatif 2: "Suppression annulée"==
+
+Admin -> catalogue : Sélectionne une rubrique/sous-rubrique
+catalogue -> Admin : Demande une confirmation de suppression
+catalogue -> Admin : "Êtes-vous sûr de vouloir supprimer ?"
+Admin -> catalogue : Suppression annulée
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+start
+
+:Admin sélectionne une commande à facturer;
+:Vérifie si la commande est complète;
+if (Commande complète ?) then (Oui)
+    :Génère la facture;
+    :Enregistre la facture dans la base;
+    if (Erreur d'enregistrement ?) then (Oui)
+        :Affiche "Erreur lors de la création de la facture";
+        stop
+    else (Non)
+        :Confirmation d'enregistrement;
+        :Envoie la facture à l'Admin;
+        stop
+    endif
+else (Non)
+    :Affiche "Impossible de créer une facture : commande incomplète";
+    stop
+endif
+
+:Admin sélectionne une commande pour créer un bon de livraison;
+:Vérifie la disponibilité des produits;
+if (Produits disponibles ?) then (Oui)
+    :Génère le bon de livraison;
+    :Enregistre le bon de livraison dans la base;
+    :Confirmation d'enregistrement;
+    :Envoie le bon de livraison à l'Admin;
+    stop
+else (Non)
+    if (Commande déjà expédiée ?) then (Oui)
+        :Affiche "Commande déjà expédiée, bon de livraison non nécessaire";
+        stop
+    else (Non)
+        :Affiche "Impossible de créer un bon de livraison : produits non disponibles";
+        stop
+    endif
+endif
+
+:Admin sélectionne une commande pour facturation et livraison partielle;
+:Vérifie si la commande peut être partiellement expédiée;
+if (Partiellement expédiable ?) then (Oui)
+    :Génère un bon de livraison partiel;
+    :Enregistre le bon de livraison partiel;
+    :Confirmation d'enregistrement du bon de livraison partiel;
+    :Envoie le bon de livraison à l'Admin;
+    
+    :Génère une facture partielle;
+    :Enregistre la facture partielle;
+    :Confirmation d'enregistrement de la facture partielle;
+    :Envoie la facture à l'Admin;
+    stop
+else (Non)
+    :Affiche "Commande non expédiable partiellement";
+    stop
+endif
+
+@enduml
+

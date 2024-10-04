@@ -1,0 +1,55 @@
+@startuml
+:Admin;
+start
+
+:Sélectionne un client professionnel;
+:Système récupère les informations du client;
+
+if (Le client existe ?) then (oui)
+  :Affiche les informations du client;
+
+  if (Appliquer réduction ou coefficient ?) then (oui)
+    :Demande la réduction ou le coefficient à appliquer;
+    :Fournit les détails de la réduction ou du coefficient;
+    if (Réduction ou coefficient inhabituel ?) then (oui)
+      :Alerte dépassement limite autorisée;
+      :Admin confirme ou annule l'opération;
+    endif
+    :Applique la réduction ou le coefficient;
+    :Confirme que la réduction ou le coefficient a été appliqué;
+  else (non)
+    if (Modifier réduction ou coefficient ?) then (oui)
+      :Affiche les informations actuelles du client;
+      :Admin modifie la réduction ou le coefficient;
+      if (Avertissement pour commande en cours ?) then (oui)
+        :Alerte impact sur les commandes en cours;
+        :Admin confirme ou annule la modification;
+      endif
+      if (Modification entraîne une réduction non conforme ?) then (oui)
+        :Alerte dépassement des limites;
+        :Admin confirme ou annule l'exception;
+      endif
+      :Met à jour les informations;
+      :Confirme la mise à jour;
+    else (Supprimer réduction ou coefficient ?)
+      :Affiche les informations actuelles du client;
+      :Demande une confirmation pour supprimer la réduction ou le coefficient;
+      if (Suppression affecte des commandes en cours ?) then (oui)
+        :Alerte impact sur commandes en cours;
+        :Admin confirme ou annule;
+      endif
+      if (Suppression impossible à cause d'une commande en cours ?) then (oui)
+        :Alerte impossibilité de suppression;
+      else (non)
+        :Supprime la réduction ou le coefficient;
+        :Confirme la suppression;
+      endif
+    endif
+  endif
+else (non)
+  :Client non trouvé, message d'erreur;
+endif
+
+stop
+@enduml
+

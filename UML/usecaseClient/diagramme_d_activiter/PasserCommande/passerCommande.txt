@@ -1,0 +1,54 @@
+@startuml
+start
+
+:Client consulte et valide le panier;
+:Panier vérifie la disponibilité des produits;
+
+if (Produits disponibles ?) then (Oui)
+    :Client fournit l'adresse de livraison;
+    :Client fournit l'adresse de facturation;
+    :Client sélectionne le mode de paiement;
+
+    :Paiement valide la transaction;
+    if (Transaction validée ?) then (Oui)
+        :Enregistre la commande;
+        :Confirme la commande;
+    else (Non)
+        :Affiche "Paiement échoué, réessayer";
+        stop
+    endif
+
+else (Non)
+    :Produit en rupture de stock;
+    :Affiche "Produit en rupture, retirer ou attendre ?";
+    stop
+endif
+
+if (Adresse de livraison manquante ?) then (Oui)
+    :Affiche "Adresse de livraison manquante";
+    :Client fournit l'adresse de livraison;
+endif
+
+if (Adresse de facturation identique ?) then (Non)
+    :Client fournit une adresse de facturation différente;
+endif
+
+if (Client entre un code promo ?) then (Oui)
+    :Panier vérifie la validité du code promo;
+    if (Code valide ?) then (Oui)
+        :Applique la réduction;
+        :Montant mis à jour avec la réduction;
+    else (Non)
+        :Affiche "Code promo invalide";
+    endif
+endif
+
+if (Livraison à plusieurs adresses ?) then (Oui)
+    :Client fournit les adresses;
+    :Enregistre la commande;
+    :Confirme la commande;
+endif
+
+stop
+@enduml
+

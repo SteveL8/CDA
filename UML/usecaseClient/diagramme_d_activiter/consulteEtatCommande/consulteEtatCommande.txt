@@ -1,0 +1,34 @@
+@startuml
+start
+
+:Client se connecte à son compte;
+: système récupère les commandes du client;
+: Envoie la liste des commandes;
+: Affiche la liste des commandes;
+
+:Client sélectionne une commande à consulter;
+
+: Récupère les détails de la commande;
+: Détails de la commande;
+
+if (État de la commande) then (Expédiée)
+    :Récupère l'état de livraison;
+    if (État de livraison) then (En attente)
+        :Affiche "Commande expédiée, livraison en cours";
+    else (Livrée)
+        :Affiche "Commande livrée";
+    endif
+else if (Partiellement livrée) then
+    :Affiche "Certains produits sont livrés, d'autres en attente";
+else if (Annulée) then
+    :Affiche "Commande annulée";
+else if (Délai de livraison dépassé) then
+    :Vérifie l'état de la livraison;
+    :Affiche "Commande en retard";
+else if (Problème de paiement) then
+    :Affiche "Problème de paiement détecté, invite à régulariser";
+endif
+
+stop
+@enduml
+

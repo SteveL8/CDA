@@ -305,6 +305,119 @@ GROUP BY d.nom;
 
 
 
+DELIMITER |
+CREATE TRIGGER insert_station AFTER INSERT ON station
+    FOR EACH ROW 
+    BEGIN
+    DECLARE altitude INT;
+    SET altitude = NEW.sta_altitude;
+        IF altitude<1000 
+            THEN SIGNAL SQLSTATE '40000' SET MESSAGE_TEXT = 'Un problème est survenu. Règle de gestion altitude !';
+        END IF;
+    END;
+| 
+DELIMITER ;
+
+select *
+from reservation;
+
+
+insert into station (sta_nom, sta_altitude) values ('station du bas', 666);
+
+--modif_reservation : interdire la modification des réservations (on autorise l'ajout et la suppression).
+DELIMITER |
+create trigger modif_reservation before update on reservation
+    for each row
+    begin
+        -- Vérification si la date de réservation a été modifiée
+        IF old.res_date != new.res_date then
+            signal sqlstate '45000' SET MESSAGE_TEXT = 'Impossible de modifier la réservation';
+        end IF;
+    end;
+DELIMITER ;
+
+ --insert_reservation : interdire l'ajout de réservation pour les hôtels possédant déjà 10 réservations.
+ DELIMITER //
+
+CREATE TRIGGER before_insert_reservation
+BEFORE INSERT ON reservation
+FOR EACH ROW
+BEGIN
+    -- Déclare une variable pour stocker le nombre de réservations existantes pour l'hôtel
+    DECLARE total_reservations INT;
+
+    -- Compte le nombre de réservations associées à l'hôtel de la chambre
+    SELECT COUNT(*) INTO total_reservations
+    FROM reservation r
+    JOIN chambre c ON r.res_cha_id = c.cha_id
+    WHERE c.cha_hot_id = (SELECT cha_hot_id FROM chambre WHERE cha_id = NEW.res_cha_id);
+
+    -- Si l'hôtel a déjà 10 réservations ou plus, on lève une erreur et on empêche l'insertion
+    IF total_reservations >= 10 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'L\'hôtel a déjà atteint la limite de 10 réservations.';
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+--insert_reservation2 : interdire les réservations si le client possède déjà 3 réservations.
+DELIMITER //
+
+CREATE TRIGGER before_insert_reservation2
+BEFORE INSERT ON reservation
+FOR EACH ROW
+BEGIN
+    -- Déclare une variable pour stocker le nombre de réservations existantes pour le client
+    DECLARE total_reservations INT;
+
+    -- Compte le nombre de réservations associées au client
+    SELECT COUNT(*) INTO total_reservations
+    FROM reservation
+    WHERE res_cli_id = NEW.res_cli_id;
+
+    -- Si le client a déjà 3 réservations ou plus, on lève une erreur et on empêche l'insertion
+    IF total_reservations >= 3 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Le client a déjà atteint la limite de 3 réservations.';
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+--insert_chambre : lors d'une insertion, on calcule le total des capacités des chambres pour l'hôtel, si ce total est supérieur à 50, on interdit l'insertion de la chambre.
+DELIMITER //
+
+CREATE TRIGGER before_insert_chambre
+BEFORE INSERT ON chambre
+FOR EACH ROW
+BEGIN
+    -- Déclare une variable pour stocker le total des capacités des chambres de l'hôtel
+    DECLARE total_capacity INT;
+
+    -- Calculer le total des capacités des chambres de l'hôtel
+    SELECT SUM(cha_capacite) INTO total_capacity
+    FROM chambre
+    WHERE cha_hot_id = NEW.cha_hot_id;
+
+    -- Ajouter la capacité de la nouvelle chambre
+    SET total_capacity = IFNULL(total_capacity, 0) + NEW.cha_capacite;
+
+    -- Si le total des capacités dépasse 50, interdire l'insertion
+    IF total_capacity > 50 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La capacité totale des chambres pour cet hôtel dépasse la limite de 50.';
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+
+
+
 
 
 

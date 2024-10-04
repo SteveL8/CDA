@@ -1,0 +1,42 @@
+@startuml
+!theme sandstone
+
+' Actor list
+actor Client
+actor Admin
+
+' usecase for actor "Admin"
+usecase "Ajouter, modifier et supprimer des produits dans le catalogue" as AjouModSupp
+usecase "Gérer le stock des produits" as gere
+usecase "Valide les commandes et met a jour leur statut" as validMaj
+usecase "Gérer les réductions et coefficients pour les clients professionnels" as GereReducCo
+usecase "Gérer le catalogue (Rubrique/Sous-rubrique)" as cata
+usecase "Gére les adresses de livraison et de facturation" as adresse
+usecase "Créer les factures et les bons de livraison" as facBon
+
+' usecase for "Client"
+usecase "Consulte le catalogue" as consultCata
+usecase "Ajoute des produits au panier" as ajoutP
+usecase "Passe une commande" as passeCom
+usecase "Paye la commande" as paye
+usecase "Consulte l'état de la commande" as étatCom
+usecase "Met a jour les information de son compte" as info 
+
+'Admin usecase relationship
+Admin --> AjouModSupp
+Admin --> gere
+Admin --> validMaj
+Admin --> GereReducCo
+Admin --> cata
+Admin --> adresse
+Admin --> facBon
+
+
+'Client usecase relationship
+Client --> consultCata
+Client --> ajoutP
+Client --> passeCom
+Client --> paye
+Client --> étatCom
+Client --> info
+@enduml

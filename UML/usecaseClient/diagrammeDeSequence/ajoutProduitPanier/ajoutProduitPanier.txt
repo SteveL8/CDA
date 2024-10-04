@@ -1,0 +1,55 @@
+@startuml
+'usecase de Client "Ajoute des produits au panier"
+
+'actors list
+actor Client
+participant Catalogue
+participant "Base de données"
+participant Panier
+
+
+                                                ==Scénario principal : Consulter le catalogue==
+
+Client -> Catalogue : Sélectionne un produit
+Catalogue -> base : Récupère les informations du produit
+base --> Catalogue : Envoie les informations du produit
+Catalogue --> Client : Affiche les informations du produit
+Client -> Panier : Ajoute le produit au panier
+Panier -> base : Vérifie la disponibilité du stock
+base --> Panier : Confirme la disponibilité du produit
+Panier --> Client : Produit ajouté avec succès
+
+                                               == Scénario Facultatif 1: Produit en rupture de stock ==
+
+Client -> Catalogue : Sélectionne un produit
+Catalogue -> base : Vérifie la disponibilité du produit
+base --> Catalogue : Produit en rupture de stock
+Catalogue --> Client : Message : "Produit en rupture de stock"
+
+                                                == Scénario Facultatif 2: Quantité insuffisante en stock ==
+
+Client -> Catalogue : Sélectionne un produit
+Catalogue -> base : Vérifie la disponibilité du produit
+base --> Catalogue : Quantité insuffisante
+Catalogue --> Client : Message : "Quantité insuffisante, stock limité"
+
+                                               == Scénario Facultatif 3:  Ajout d'un produit déjà présent dans le panier==
+
+Client -> Catalogue : Sélectionne un produit déjà présent dans le panier
+Catalogue -> Panier : Produit déjà présent dans le panier
+Panier -> Client : Message : "Produit déjà dans le panier, modifier la quantité ?"
+
+
+                                               ==Scénario principal : Ajouter plusieurs produits au panier==
+
+Client -> Catalogue : Sélectionne plusieurs produits
+Catalogue -> base : Récupère les informations des produits
+base --> Catalogue : Envoie les informations des produits
+Catalogue --> Client : Affiche les informations des produits
+
+Client -> Panier : Ajoute plusieurs produits au panier
+Panier -> base : Vérifie la disponibilité des produits
+base --> Panier : Confirme la disponibilité des produits
+Panier --> Client : Tous les produits ajoutés au panier
+
+@enduml

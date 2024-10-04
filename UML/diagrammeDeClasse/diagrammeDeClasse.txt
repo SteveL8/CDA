@@ -1,0 +1,98 @@
+@startuml
+class Client {
+    +clientId: String
+    +nom: String
+    +email: String
+    +adresse: String
+    +motDePasse: String
+    +modifierInformations(): void
+    +changerMotDePasse(ancienMotDePasse: String, nouveauMotDePasse: String): void
+    +ajouterAdresseLivraison(adresse: String): void
+}
+
+class Administrateur {
+    +adminId: String
+    +nom: String
+    +email: String
+    +motDePasse: String
+    +ajouterClient(client: Client): void
+    +modifierClient(client: Client): void
+    +supprimerClient(clientId: String): void
+}
+
+class Produit {
+    +produitId: String
+    +nom: String
+    +description: String
+    +prix: Float
+    +quantiteDisponible: Integer
+    +ajouterProduit(): void
+    +modifierProduit(): void
+}
+
+class Commande {
+    +commandeId: String
+    +clientId: String
+    +produits: List<Produit>
+    +dateCommande: Date
+    +statut: String
+    +calculerTotal(): Float
+}
+
+class Panier {
+    +panierId: String
+    +clientId: String
+    +produits: List<Produit>
+    +ajouterProduit(produit: Produit): void
+    +retirerProduit(produitId: String): void
+    +viderPanier(): void
+    +calculerTotal(): Float
+}
+
+class Adresse {
+    +adresseId: String
+    +ligne1: String
+    +ligne2: String
+    +codePostal: String
+    +ville: String
+}
+
+class BaseDeDonnees {
+    +clients: List<Client>
+    +commandes: List<Commande>
+    +produits: List<Produit>
+    +enregistrerClient(client: Client): void
+    +mettreAJourClient(client: Client): void
+    +recupererClient(clientId: String): Client
+    +recupererProduit(produitId: String): Produit
+}
+
+class Systeme {
+    +authentifierClient(email: String, motDePasse: String): boolean
+    +recupererInformationsClient(clientId: String): Client
+    +mettreAJourInformationsClient(client: Client): void
+    +verifierAncienMotDePasse(client: Client, ancienMotDePasse: String): boolean
+}
+
+class ServiceDePaiement {
+    +effectuerPaiement(montant: Float): boolean
+    +validerCodePromo(code: String): boolean
+}
+
+class ServiceDeLivraison {
+    +suivreLivraison(commandeId: String): String
+    +estimerDelaiLivraison(adresse: Adresse): Integer
+}
+
+Client "1" -- "1..*" Adresse : possède >
+Client "1" -- "0..*" Commande : passe >
+Client "1" -- "1" Panier : utilise >
+Client "1" -- "0..*" Produit : ajoute >
+Administrateur "1" -- "0..*" Client : gère >
+Commande "0..*" -- "1..*" Produit : contient >
+Systeme "1" -- "1" BaseDeDonnees : utilise >
+ServiceDePaiement "1" -- "0..*" Commande : traite >
+ServiceDeLivraison "1" -- "0..*" Commande : livre >
+
+@enduml
+

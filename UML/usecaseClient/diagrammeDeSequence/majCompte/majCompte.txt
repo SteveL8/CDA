@@ -1,0 +1,57 @@
+@startuml
+'usecase de Client "Met à jour les informations de son compte"
+
+'actors list
+actor Client
+participant systeme
+participant "Base de données" as base 
+
+                                          ==Scénario principal : Met à jour les informations du compte==
+
+Client -> systeme : Accède à son compte
+systeme -> base : Récupère les informations actuelles du compte
+base --> systeme : Envoie les informations actuelles
+systeme -> Client : Affiche les informations actuelles
+Client -> systeme : Modifie les informations (nom, email, adresse, etc.)
+systeme -> base : Met à jour les informations dans la base
+base --> systeme : Confirmation de la mise à jour
+systeme --> Client : Confirme que les informations ont été mises à jour
+
+
+                                          ==Scénario Facultatif 1 : Informations manquantes ou invalides==
+
+Client -> systeme : Modifie les informations du compte
+systeme -> base : Valide les informations
+base --> systeme : Informations invalides (ex : adresse email non valide)
+systeme --> Client : Alerte sur les informations manquantes ou incorrectes
+
+
+                                          ==Scénario Facultatif 2 : Changement de mot de passe==
+
+Client -> systeme : Demande à changer son mot de passe
+systeme -> Client : Demande de fournir l'ancien mot de passe
+Client -> systeme : Fournit l'ancien et le nouveau mot de passe
+systeme -> base : Vérifie l'ancien mot de passe
+base --> systeme : Ancien mot de passe correct
+systeme -> base : Met à jour le mot de passe
+base --> systeme : Confirmation du changement de mot de passe
+systeme --> Client : Confirmation que le mot de passe a été changé
+
+
+                                          ==Scénario Facultatif 3 : Ajout d'une nouvelle adresse de livraison==
+
+Client -> systeme : Demande à ajouter une nouvelle adresse de livraison
+systeme -> Client : Demande de saisir les détails de la nouvelle adresse
+Client -> systeme : Fournit la nouvelle adresse de livraison
+systeme -> base : Ajoute la nouvelle adresse dans la base
+base --> systeme : Confirmation de l'ajout de l'adresse
+systeme --> Client : Confirme que l'adresse de livraison a été ajoutée
+
+
+                                          ==Scénario Facultatif 4 : Échec de mise à jour (problème technique)==
+
+Client -> systeme : Modifie les informations du compte
+systeme -> base : Tente de mettre à jour les informations
+base --> systeme : Échec de mise à jour (erreur technique)
+systeme --> Client : Alerte sur l'échec de la mise à jour, réessayer plus tard
+@enduml

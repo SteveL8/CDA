@@ -1,0 +1,47 @@
+@startuml
+'usecase d'Admin : Gérer le stock des produits.
+
+' actors list
+actor Admin
+participant Catalogue
+participant baseDeDonnée as base
+
+
+                                                   ==Scénario principal pour "Gérer le stock des produits"==
+
+Admin -> Catalogue : Sélectionne la liste des produits
+Catalogue --> Admin : Affiche la liste des produits
+Admin -> Catalogue : Choisit un produit et entre la nouvelle quantité de stock
+Catalogue -> base : Envoie la nouvelle quantité de stock pour la mettre a jour
+base --> Catalogue : Confirme la mise a jour
+Catalogue --> Admin : Confirme que le stock a bien été mise a jour
+
+                                                   ==Scénario 2 : Le produit n'existe pas==
+
+Admin -> Catalogue : Sélectionne la liste des produits
+Catalogue --> Admin : Affiche la liste des produits
+Admin -> Catalogue : Choisit un produit et entre la nouvelle quantité de stock
+Catalogue -> base : Envoie la nouvelle quantité de stock pour la mettre a jour
+base --> Catalogue : Le produit n'existe pas
+Catalogue --> Admin : Affiche un message d'erreur : "Produit introuvable"
+
+                                                   ==Scénario 3 : Stock invalide==
+
+Admin -> Catalogue : Sélectionne la liste des produits
+Catalogue --> Admin : Affiche la liste des produits
+Admin -> Catalogue : Choisit un produit et entre la nouvelle quantité de stock
+Catalogue --> Admin :Affiche un message d'erreur "Quantité de stock invalide"
+Admin -> Catalogue : Entre une nouvelle quantité valide
+Catalogue -> base : Envoie la nouvelle quantité de stock pour la mettre a jour
+base --> Catalogue : Confirme la mise a jour
+Catalogue --> Admin : Confirme que le stock a bien été mise a jour
+
+                                                   ==Scénario 4 : Erreur base de données==
+
+Admin -> Catalogue : Sélectionne la liste des produits
+Catalogue --> Admin : Affiche la liste des produits
+Admin -> Catalogue : Choisit un produit et entre la nouvelle quantité de stock
+Catalogue -> base : Envoie la nouvelle quantité de stock pour la mettre a jour
+base -> Catalogue : Échec de la mise a jour
+Catalogue --> Admin : Affiche un message d'erreur "Erreur lors de la mise a jour du stock
+@enduml 

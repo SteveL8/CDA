@@ -1,0 +1,85 @@
+@startuml
+'usecase d'Admin : Ajouter, modifier et supprimer des produits dans le catalogue.
+
+' actors list
+actor Admin
+participant Catalogue
+participant Produit
+participant systeme
+participant baseDeDonnée as base
+
+
+                                                           ==Scénario principal pour "Ajouter un produit"==
+
+Admin -> systeme : Ajouter un produit
+systeme --> Admin : Demande les information du produit
+Admin -> systeme : Entre les information du produit
+systeme -> base : Vérifie si le produit n'existe pas déjà
+base --> systeme : le produit n'existe pas 
+systeme -> base : Ajouter le nouveau produit
+systeme --> Admin : Produit ajouter
+
+                                                          ==Scénario 2 : information incomplètes/incorrectes==
+
+Admin -> systeme : Ajouter un produit
+systeme --> Admin : Demande les information du produit
+Admin -> systeme : Entre les information du produit
+systeme --> Admin : Information manquante/invalide
+Admin -> systeme : Fournie les information manquante/invalide
+systeme -> base : Vérifie si le produit n'existe pas déjà
+base --> systeme : le produit n'existe pas 
+systeme -> base : Ajouter le nouveau produit
+systeme --> Admin : Produit ajouter
+
+                                                         ==Scénario 3 : Le produit existe déjà==
+
+Admin -> systeme : Ajouter un produit
+systeme --> Admin : Demande les information du produit
+Admin -> systeme : Entre les information du produit
+systeme -> base : Vérifie si le produit n'existe pas déjà
+base --> systeme : le produit existe déjà
+systeme --> Admin :  Erreur  : Le produit existe déjà
+
+                                                         ==Scénario 3 : Problème de connection a la base données==
+
+Admin -> systeme : Ajouter un produit
+systeme --> Admin : Demande les information du produit
+Admin -> systeme : Entre les information du produit
+systeme -> base : Vérifie si le produit n'existe pas déjà
+systeme --> Admin : Erreur : Problème de connexion à la base de données
+
+                                              
+
+                                                        ==Scénario principal pour "Modifier un produit"===
+
+Admin -> Catalogue : Selectionne un produit a modifier
+Catalogue -> base : Récupère les information du produit
+base --> Catalogue : Envoie les information du produit
+Catalogue --> Admin : Affiche les information du produit
+Admin -> Catalogue : Envoie les nouvelles information du produit après modification
+Catalogue -> base : Met a jour les nouvelles information du produit
+Catalogue --> Admin : Confirme que le produit a été mis a jour
+
+                                                        ==Scénario 2 : Les nouvelles information sont incomplètes/incorrectes==
+
+Admin -> Catalogue : Selectionne un produit a modifier
+Catalogue --> base : Récupère les information du produit
+base --> Catalogue : Envoie les information du produit
+Catalogue --> Admin : Affiche les information du produit
+Admin -> Catalogue : Envoie les nouvelles information du produit après modification
+systeme --> Admin : Erreur : Informations incorrectes ou manquantes
+Admin -> systeme : Corriger et renvoyer les informations
+
+
+                                                        ==Scénario principal pour "Supprimer un produit"==
+
+Admin -> Catalogue : Sélectionne un produit a supprimer
+Catalogue --> Admin : Demande une confirmation pour supprimer le produit
+Admin -> Catalogue : Confirme la suppression 
+Catalogue -> base : Le produit est supprimer
+Catalogue --> Admin : Confirme que le produit a bien été supprimer
+
+                                                       ==Scénario 2 : ==
+
+
+@enduml

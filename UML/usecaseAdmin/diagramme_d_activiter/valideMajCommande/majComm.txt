@@ -1,0 +1,28 @@
+@startuml
+:Admin;
+start
+
+:Sélectionne une commande à valider;
+:Affiche les détails de la commande;
+
+if (Commande à valider ?) then (oui)
+  :Valide la commande;
+  :Met à jour le statut de la commande (validée);
+  :Confirme la mise à jour de la commande;
+  stop
+else (non)
+  if (Commande partiellement expédiée ?) then (oui)
+    :Affiche le statut "Partiellement expédiée";
+    :Met à jour le statut (partiellement traitée);
+    :Confirme la mise à jour;
+    stop
+  else (non)
+    :Problème détecté avec la commande;
+    :Met à jour le statut (en attente de résolution);
+    :Confirme la mise à jour du statut;
+    stop
+  endif
+endif
+
+@enduml
+

@@ -1,0 +1,68 @@
+@startuml
+'usecase de Client "Consulter l'état de la commande"
+
+'actors list
+actor Client
+participant systeme
+participant "Base de données" as base 
+participant "Commande"
+participant "Service de livraison" as service
+
+
+                                          ==Scénario principal : Consulter l'état d'une commande==
+
+Client -> systeme : Se connecte à son compte
+systeme -> base : Récupère les commandes du client
+base --> systeme : Envoie la liste des commandes
+systeme -> Client : Affiche la liste des commandes
+Client -> systeme : Sélectionne une commande à consulter
+systeme -> base : Récupère les détails de la commande
+base --> systeme : Détails de la commande
+systeme -> Client : Affiche l'état de la commande
+
+
+                                          ==Scénario Facultatif 1 : Commande expédiée mais non livrée==
+
+Client -> systeme : Consulte une commande
+systeme -> base : Récupère l'état de la commande
+base --> systeme : Commande expédiée
+systeme -> service : Récupère l'état de livraison
+service --> systeme : En attente de livraison
+systeme --> Client : Commande expédiée, livraison en cours
+
+
+                                          ==Scénario Facultatif 2 : Commande partiellement livrée==
+
+Client -> systeme : Consulte une commande
+systeme -> base : Récupère l'état de la commande
+base --> systeme : Commande partiellement livrée
+systeme --> Client : Informe que certains produits sont livrés, d'autres en attente
+
+
+                                          ==Scénario Facultatif 3 : Commande annulée==
+
+Client -> systeme : Consulte une commande
+systeme -> base : Récupère l'état de la commande
+base --> systeme : Commande annulée
+systeme --> Client : Informe que la commande a été annulée
+
+
+                                          ==Scénario Facultatif 4 : Délai de livraison dépassé==
+
+Client -> systeme : Consulte une commande
+systeme -> base : Récupère l'état de la commande
+base --> systeme : Commande expédiée
+systeme ->  service : Vérifie l'état de la livraison
+service --> systeme : Délai de livraison dépassé
+systeme --> Client : Informe que la commande est en retard
+
+
+                                          ==Scénario Facultatif 5 : Problème de paiement détecté==
+
+Client -> systeme : Consulte une commande
+systeme -> base : Récupère l'état de la commande
+base --> systeme : Problème de paiement détecté
+systeme --> Client : Informe du problème de paiement, invite à régulariser
+
+@enduml
+

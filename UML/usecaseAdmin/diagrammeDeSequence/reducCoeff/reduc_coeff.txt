@@ -1,0 +1,93 @@
+@startuml
+'usecase d'Admin "Gérer les réductions et coefficients pour les clients professionnels"
+
+'actors list
+actor Admin
+actor ClientProfessionnel as pro
+participant baseDonneeClient as base
+participant systeme
+
+
+                                                ==Scénario principal : "Applique une réduction ou un coefficient pour un client professionnel"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations du client
+base -> systeme : Envoie les informations du client
+systeme --> Admin : Demande la réduction ou le coefficient à appliquer
+Admin -> systeme : Fournit les détails de la réduction ou du coefficient
+systeme --> base  : Applique la réduction ou le coefficient
+systeme --> Admin : Confirme que la réduction ou le coefficient a été appliqué
+
+                                               ==Scénario alternatif 1: "Le client n'existe pas"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> Admin : "Client non trouvé. Veuillez vérifier l'identifiant ou créer un nouveau client."
+
+                                               ==Scénario alternatif 2: "Réduction ou coefficient inhabituel"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations du client
+base -> systeme : Envoie les informations du client
+systeme --> Admin : Demande la réduction ou le coefficient à appliquer
+Admin -> systeme : Fournit les détails de la réduction ou du coefficient
+Système --> Admin : "Attention, la réduction dépasse la limite autorisée. Confirmez-vous cette action ?"
+Admin -> systeme : Confirme ou annule l'opération.
+
+                                               ==Scénario principal : "Modifier une réduction ou un coefficient"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations du client, y compris la réduction ou le coefficient
+base -> systeme : Envoie les informations actuelles du client
+systeme --> Admin : Affiche les informations actuelles du client
+Admin -> systeme : Modifie la réduction ou le coefficient
+systeme --> base : Met à jour les informations
+systeme --> Admin : Confirme que les informations ont été mises à jour
+
+                                             ==Scénario alternatif 1: "Avertissement pour les modifications sur une commande en cours"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations du client, y compris la réduction ou le coefficient
+base -> systeme : Envoie les informations actuelles du client
+systeme --> Admin : Affiche les informations actuelles du client
+Admin -> systeme : Modifie la réduction ou le coefficient
+systeme --> Admin : "Attention, cette modification peut affecter les commandes en cours de ce client. Souhaitez-vous continuer ?"
+Admin -> systeme : Confirme ou annule la modification.
+
+                                            ==Scénario alternatif 2: "La modification entraîne une réduction non conforme"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations du client, y compris la réduction ou le coefficient
+base -> systeme : Envoie les informations actuelles du client
+systeme --> Admin : Affiche les informations actuelles du client
+Admin -> systeme : Modifie la réduction ou le coefficient
+systeme --> Admin : "La modification dépasse les limites autorisées. Voulez-vous confirmer l'exception ?"
+
+                                             ==Scénario principal : "Supprimer une réduction ou un coefficient"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations actuelles du client
+base -> systeme : Envoie les informations du client
+systeme --> Admin : Demande une confirmation pour supprimer la réduction ou le coefficient
+Admin -> systeme : Confirme la suppression
+systeme --> base : Supprime la réduction ou le coefficient
+systeme --> Admin : Confirme que la suppression a été effectuée avec succès
+
+                                            ==Scénario alternatif 1: "Confirmation obligatoire pour suppression"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations actuelles du client
+base -> systeme : Envoie les informations du client
+systeme --> Admin : Demande une confirmation pour supprimer la réduction ou le coefficient
+Admin -> systeme : Confirme la suppression
+systeme --> Admin : "Attention, cette suppression affectera plusieurs commandes en cours. Voulez-vous continuer ?"
+Admin -> systeme : Confirme ou annule
+
+                                           ==Scénario alternatif 1: "Suppression impossible en raison d'une commande en cours"==
+
+Admin -> systeme : Sélectionne un client professionnel
+systeme --> base : Récupère les informations actuelles du client
+base -> systeme : Envoie les informations du client
+systeme --> Admin : Demande une confirmation pour supprimer la réduction ou le coefficient
+Admin -> systeme : Confirme la suppression
+systeme -> Admin : "La suppression est impossible. La réduction ou le coefficient est encore lié à une commande en cours"
+@enduml

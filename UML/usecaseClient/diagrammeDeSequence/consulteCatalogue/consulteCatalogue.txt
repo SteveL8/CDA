@@ -1,0 +1,68 @@
+@startuml
+'usecase de Client "Consulte le catalogue"
+
+'actors list
+actor Client
+participant "Base de données" as base
+participant Catalogue
+
+
+
+                                                 ==Scénario principal : Consulter le catalogue==
+Bob -> Alice : hello
+Client -> Catalogue : Ouvre la page du catalogue
+Catalogue -> base : Récupère la liste des produits
+base --> Catalogue : Envoie la liste des produits
+Catalogue --> Client : Affiche la liste des produits
+
+                                                           == Scénario Facultatif 1: Affichage par Rubrique/Sous-rubrique ==
+
+Client -> Catalogue : Sélectionne une rubrique ou sous-rubrique
+Catalogue -> base : Récupère les produits de la rubrique/sous-rubrique
+base --> Catalogue : Envoie les produits filtrés
+Catalogue --> Client : Affiche les produits de la rubrique/sous-rubrique
+
+                                                           == Scénario Facultatif 2: Affichage détaillé d'un produit ==
+
+Client -> Catalogue : Sélectionne un produit pour plus de détails
+Catalogue -> base : Récupère les informations du produit sélectionné
+base --> Catalogue : Envoie les détails du produit
+Catalogue --> Client : Affiche les détails du produit (prix, description, photo, etc.)
+
+                                                              == Scénario Facultatif 3: Pas de produit disponible ==
+
+Client -> Catalogue : Ouvre la page du catalogue
+Catalogue -> base : Récupère la liste des produits
+base --> Catalogue : Aucune donnée (catalogue vide)
+Catalogue --> Client : Affiche "Aucun produit disponible dans le catalogue"
+
+
+
+                                                              ==Scénario principal : Consulter le catalogue avec recherche==
+
+Client -> Catalogue : Saisit un terme de recherche
+Catalogue -> base : Recherche les produits correspondant au terme
+base --> Catalogue : Envoie les résultats de la recherche
+Catalogue --> Client : Affiche les produits correspondant à la recherche
+
+                                                              == Scénario Facultatif : Pas de résultat pour la recherche ==
+
+Client -> Catalogue : Saisit un terme de recherche
+Catalogue -> base : Recherche les produits correspondant au terme
+base --> Catalogue : Aucun produit correspondant
+Catalogue --> Client : Affiche "Aucun produit trouvé pour cette recherche"
+
+                                                              ==Scénario principal : Consultation du catalogue avec tri ou filtrage==
+
+Client -> Catalogue : Applique un filtre (par prix, catégorie, etc.)
+Catalogue -> base : Récupère les produits selon le filtre appliqué
+base --> Catalogue : Envoie les produits filtrés
+Catalogue --> Client : Affiche la liste des produits selon le filtre
+
+== Scénario Facultatif : Pas de produit après filtrage ==
+Client -> Catalogue : Applique un filtre
+Catalogue -> base : Récupère les produits selon le filtre appliqué
+base --> Catalogue : Aucun produit après filtrage
+Catalogue --> Client : Affiche "Aucun produit correspondant aux critères sélectionnés"
+
+@enduml

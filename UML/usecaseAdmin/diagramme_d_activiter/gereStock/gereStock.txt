@@ -1,0 +1,28 @@
+@startuml
+:Admin;
+start
+
+:Sélectionne la liste des produits;
+:Affiche la liste des produits;
+
+:Choisit un produit et entre la nouvelle quantité de stock;
+
+if (Le produit existe ?) then (oui)
+  if (Quantité valide ?) then (oui)
+    :Met à jour la quantité de stock;
+    :Confirme la mise à jour du stock;
+    stop
+  else (non)
+    :Affiche un message d'erreur "Quantité invalide";
+    :Admin entre une nouvelle quantité;
+    :Met à jour la quantité de stock;
+    :Confirme la mise à jour du stock;
+    stop
+  endif
+else (non)
+  :Affiche un message d'erreur "Produit introuvable";
+  stop
+endif
+
+@enduml
+

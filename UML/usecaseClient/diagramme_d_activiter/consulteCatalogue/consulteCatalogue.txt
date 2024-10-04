@@ -1,0 +1,40 @@
+@startuml
+start
+
+:Client ouvre la page du catalogue;
+:Catalogue récupère la liste des produits;
+if (Produits disponibles ?) then (Oui)
+    :Affiche la liste des produits;
+else (Non)
+    :Affiche "Aucun produit disponible dans le catalogue";
+    stop
+endif
+
+:Client sélectionne une rubrique ou sous-rubrique;
+:Catalogue récupère les produits de la rubrique/sous-rubrique;
+:Affiche les produits de la rubrique/sous-rubrique;
+
+:Client sélectionne un produit pour plus de détails;
+:Catalogue récupère les informations du produit sélectionné;
+:Affiche les détails du produit (prix, description, photo, etc.);
+
+:Client saisit un terme de recherche;
+:Catalogue recherche les produits correspondant au terme;
+if (Résultats trouvés ?) then (Oui)
+    :Affiche les produits correspondant à la recherche;
+else (Non)
+    :Affiche "Aucun produit trouvé pour cette recherche";
+    stop
+endif
+
+:Client applique un filtre (prix, catégorie, etc.);
+:Catalogue récupère les produits selon le filtre appliqué;
+if (Produits après filtrage ?) then (Oui)
+    :Affiche les produits filtrés;
+else (Non)
+    :Affiche "Aucun produit correspondant aux critères sélectionnés";
+endif
+
+stop
+@enduml
+

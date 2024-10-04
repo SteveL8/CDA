@@ -1,0 +1,74 @@
+@startuml
+'usecase d'Admin "Gére les adresses de livraison et de facturation"
+
+'actors list
+actor Admin
+actor Client
+participant baseDeDonnee as base
+
+
+                                                           ==Scénario principal : "Ajouter une adresse de livraison ou de facturation"==
+
+
+Admin -> Client : Sélectionne le client
+Client --> Admin : Fournit les informations de la nouvelle adresse
+Admin -> base : Vérifie si l’adresse existe déjà
+base --> Admin : Indique que l’adresse n’existe pas
+Admin -> base : Ajoute la nouvelle adresse
+Admin -> Client : Confirme l'ajout
+
+                                                                  ==Scénario Facultatif 1 : Adresse déjà existante==
+
+Admin -> base : Vérifie si l’adresse existe
+base --> Admin : L’adresse existe déjà
+Admin -> Client : Affiche "L’adresse existe déjà"
+
+                                                                  ==Scénario Facultatif 2 : Adresse invalide==
+
+Admin -> Client : Saisie une adresse invalide
+Client --> Admin : Affiche "Adresse invalide, veuillez réessayer"
+
+
+                                                                   ==Scénario principal : "Modifier une adresse de livraison ou de facturation"==
+
+Admin -> Client : Sélectionne l’adresse à modifier
+Client -> base : Récupère les informations actuelles de l’adresse
+base --> Client : Envoie les informations actuelles
+Client --> Admin : Affiche les informations actuelles
+Admin -> Client : Modifie les informations de l’adresse
+Admin -> base : Met à jour l’adresse
+Admin -> Client : Confirme la mise à jour
+
+                                                                           ==Scénario Facultatif 1 : Adresse non trouvée==
+
+Admin -> base : Vérifie l’existence de l’adresse
+base --> Admin : L’adresse n’existe pas
+Admin -> Client : Affiche "Adresse non trouvée"
+
+                                                                             ==Scénario Facultatif 2 : Conflit d'adresse==
+
+Admin -> base : Vérifie si l’adresse modifiée est déjà utilisée
+base --> Admin : Adresse déjà utilisée
+Admin -> Client : Affiche "Adresse déjà utilisée"
+
+
+                                                                      ==Scénario principal : "Supprimer une adresse de livraison ou de facturation"==
+
+Admin -> Client : Sélectionne une adresse à supprimer
+Client --> Admin : Demande une confirmation
+Admin -> Client : Confirme la suppression
+Admin -> base : Supprime l’adresse
+Admin -> Client : Confirme la suppression
+
+                                                                         ==Scénario Facultatif 1 : Adresse utilisée pour une commande en cours==
+
+Admin -> base : Vérifie si l'adresse est utilisée dans une commande active
+base --> Admin : Adresse liée à une commande en cours
+Admin -> Client : Affiche "Impossible de supprimer l'adresse"
+
+                                                                        ==Scénario Facultatif 2 : Suppression annulée==
+
+Admin -> Client : Demande confirmation
+Admin -> Client : Annule la suppression
+Client --> Admin : Aucune suppression effectuée
+@enduml

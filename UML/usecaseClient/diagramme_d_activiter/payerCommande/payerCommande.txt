@@ -1,0 +1,59 @@
+@startuml
+start
+
+:Client sélectionne la commande à payer;
+:Commande envoie les détails de la commande;
+:Affiche le montant à payer;
+
+:Client sélectionne le mode de paiement;
+
+:Envoie les informations de paiement;
+
+if (Paiement réussi ?) then (Oui)
+    :Enregistre le paiement;
+    :Confirme le paiement réussi;
+else (Non)
+    :Informe du refus du paiement;
+endif
+
+if (Client annule la commande ?) then (Oui)
+    :Propose le paiement;
+    :Client annule la commande;
+    :Demande confirmation d'annulation;
+    :Client confirme l'annulation;
+    :Met à jour le statut de la commande;
+    :Confirme l'annulation;
+endif
+
+if (Paiement fractionné ?) then (Oui)
+    :Sélectionne paiement en plusieurs fois;
+    :Envoie les informations pour paiement fractionné;
+    :Valide la première transaction;
+    :Enregistre les informations du paiement partiel;
+    :Confirme le paiement partiel;
+endif
+
+if (Code promo entré ?) then (Oui)
+    :Vérifie la validité du code promo;
+    if (Promo valide ?) then (Oui)
+        :Met à jour le montant;
+        :Affiche le nouveau montant;
+    else (Non)
+        :Affiche "Code promo invalide";
+    endif
+    :Procède au paiement avec réduction;
+    :Valide le paiement avec réduction;
+    :Enregistre le paiement;
+    :Confirme le paiement réussi avec réduction;
+endif
+
+if (Choix d'un autre mode de paiement après échec ?) then (Oui)
+    :Propose un autre mode de paiement;
+    :Sélectionne un autre mode;
+    :Valide le nouveau paiement;
+    :Confirme le paiement réussi;
+endif
+
+stop
+@enduml
+

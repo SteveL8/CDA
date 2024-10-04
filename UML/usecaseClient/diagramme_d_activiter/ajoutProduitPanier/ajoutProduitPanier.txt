@@ -1,0 +1,47 @@
+@startuml
+start
+
+:Client sélectionne un produit;
+:Catalogue récupère les informations du produit;
+:Affiche les informations du produit;
+
+:Client ajoute le produit au panier;
+:Panier vérifie la disponibilité du stock;
+
+if (Produit en stock ?) then (Oui)
+    :Produit ajouté avec succès;
+else (Non)
+    :Affiche "Produit en rupture de stock";
+    stop
+endif
+
+if (Quantité suffisante ?) then (Oui)
+    :Produit ajouté avec succès;
+else (Non)
+    :Affiche "Quantité insuffisante, stock limité";
+    stop
+endif
+
+if (Produit déjà dans le panier ?) then (Oui)
+    :Affiche "Produit déjà dans le panier, modifier la quantité ?";
+else (Non)
+    :Panier vérifie la disponibilité des produits;
+    :Tous les produits ajoutés au panier;
+endif
+
+:Client sélectionne plusieurs produits;
+:Catalogue récupère les informations des produits;
+:Affiche les informations des produits;
+
+:Client ajoute plusieurs produits au panier;
+:Panier vérifie la disponibilité des produits;
+
+if (Tous les produits en stock ?) then (Oui)
+    :Tous les produits ajoutés au panier;
+else (Non)
+    :Affiche "Un ou plusieurs produits en rupture de stock";
+endif
+
+stop
+@enduml
+

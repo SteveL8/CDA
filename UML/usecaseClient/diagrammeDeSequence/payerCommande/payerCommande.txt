@@ -1,0 +1,71 @@
+@startuml
+'usecase de Client "Payer la commande"
+
+'actors list
+actor Client
+participant systeme
+participant "Service de paiement" as service
+participant "Base de données" as base 
+participant Commande
+
+                                          ==Scénario principal : Payer une commande==
+
+Client -> Commande : Sélectionne la commande à payer
+Commande -> systeme : Envoie les détails de la commande
+systeme -> Client : Affiche le montant à payer
+Client -> systeme : Sélectionne le mode de paiement
+systeme -> service : Envoie les informations de paiement
+service -> systeme : Confirme le paiement
+systeme -> base : Enregistre le paiement
+systeme --> Client : Confirme le paiement réussi
+
+                                          ==Scénario Facultatif 1 : Paiement échoué==
+
+Client -> systeme : Sélectionne le mode de paiement
+systeme -> service : Envoie les informations de paiement
+service --> systeme : Paiement échoué
+systeme --> Client : Informe du refus du paiement
+
+                                          ==Scénario Facultatif 2 : Annulation de la commande avant paiement==
+
+Client -> Commande : Sélectionne une commande
+systeme -> Client : Propose le paiement
+Client -> systeme : Annule la commande
+systeme -> Client : Demande confirmation d'annulation
+Client -> systeme : Confirme l'annulation
+systeme -> base : Met à jour le statut de la commande
+systeme --> Client : Confirme l'annulation
+
+                                          ==Scénario Facultatif 3 : Paiement fractionné==
+
+Client -> systeme : Sélectionne paiement en plusieurs fois
+systeme -> service : Envoie les informations pour paiement fractionné
+service -> systeme : Valide la première transaction
+systeme -> base : Enregistre les informations du paiement partiel
+systeme --> Client : Confirme le paiement partiel
+
+                                          ==Scénario Facultatif 4 : Réduction ou code promo appliqué==
+
+Client -> systeme : Entre un code promo
+systeme -> base : Vérifie la validité du code promo
+base --> systeme : Promo valide, met à jour le montant
+systeme -> Client : Affiche le nouveau montant
+Client -> systeme : Procède au paiement
+systeme -> service : Valide le paiement avec réduction
+service --> systeme : Paiement validé
+systeme -> base : Enregistre le paiement
+systeme --> Client : Confirme le paiement réussi avec réduction
+
+                                          ==Scénario Facultatif 5 : Choix d'un autre mode de paiement après échec==
+
+Client -> systeme : Sélectionne le mode de paiement
+systeme -> service : Envoie les informations de paiement
+service --> systeme : Paiement échoué
+systeme --> Client : Propose un autre mode de paiement
+Client -> systeme : Sélectionne un autre mode
+systeme -> service : Valide le nouveau paiement
+service --> systeme : Paiement validé
+systeme --> Client : Confirme le paiement réussi
+@enduml
+
+

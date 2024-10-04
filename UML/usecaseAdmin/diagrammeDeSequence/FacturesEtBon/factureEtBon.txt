@@ -1,0 +1,100 @@
+@startuml
+'usecase d'Admin "Créer les factures et les bons de livraison"
+
+'actors list
+actor Admin
+participant "Base de données" as base
+participant Commande
+participant Facture
+participant "Bon de Livraison" as bon
+
+
+
+                                                      ==Scénario principal : Créer une facture==
+
+Admin -> Commande : Sélectionne une commande à facturer
+Commande --> base : Vérifie si la commande est complète
+base -> Commande : Commande complète
+Commande -> Facture : Génère la facture
+Facture -> base : Enregistre la facture
+base --> Facture : Confirmation d'enregistrement
+Facture --> Admin : Envoie la facture à l'Admin
+
+                                                       ==Scénario Facultatif 1 : Commande incomplète==
+
+Admin -> Commande : Sélectionne une commande à facturer
+Commande -> base : Vérifie si la commande est complète
+base --> Commande : Commande incomplète
+Commande -> Admin : Affiche "Impossible de créer une facture : commande incomplète"
+
+                                                       ==Scénario Facultatif 2 : Erreur d'enregistrement==
+
+Commande -> Facture : Génère la facture
+Facture -> base : Enregistre la facture
+base --> Facture : Erreur d'enregistrement
+Facture -> Admin : Affiche "Erreur lors de la création de la facture"
+
+
+
+                                                   ==Scénario principal : Créer un bon de livraison==
+
+Admin -> Commande : Sélectionne une commande pour créer un bon de livraison
+Commande -> base : Vérifie la disponibilité des produits
+base --> Commande : Produits disponibles
+Commande -> bon : Génère le bon de livraison
+bon -> base : Enregistre le bon de livraison
+base --> bon : Confirmation d'enregistrement
+bon --> Admin : Envoie le bon de livraison à l'Admin
+
+                                                == Scénario Facultatif 1 : Produits non disponibles ==
+
+Admin -> Commande : Sélectionne une commande pour créer un bon de livraison
+Commande -> base : Vérifie la disponibilité des produits
+base --> Commande : Produits non disponibles
+Commande -> Admin : Affiche "Impossible de créer un bon de livraison : produits non disponibles"
+
+                                                == Scénario Facultatif 2 : Commande déjà expédiée ==
+
+Admin -> Commande : Sélectionne une commande pour créer un bon de livraison
+Commande -> base : Vérifie le statut de la commande
+base --> Commande : Commande déjà expédiée
+Commande -> Admin : Affiche "Commande déjà expédiée, bon de livraison non nécessaire"
+
+
+
+                                              ==Scénario principal :  Facture et bon de livraison pour une commande partielle==
+
+Admin -> Commande : Sélectionne une commande pour facturation et livraison partielle
+Commande -> base : Vérifie si la commande peut être partiellement expédiée
+base --> Commande : Partiellement expédiable
+Commande -> bon : Génère un bon de livraison partiel
+bon -> base : Enregistre le bon de livraison partiel
+base --> bon : Confirmation d'enregistrement
+bon --> Admin : Envoie le bon de livraison à l'Admin
+
+Commande -> Facture : Génère une facture partielle
+Facture -> base : Enregistre la facture partielle
+base --> Facture : Confirmation d'enregistrement
+Facture --> Admin : Envoie la facture à l'Admin
+
+== Scénario Facultatif : Commande non partiellement expédiable ==
+Admin -> Commande : Sélectionne une commande pour facturation et livraison partielle
+Commande -> base : Vérifie si la commande peut être partiellement expédiée
+base --> Commande : Non expédiable partiellement
+Commande -> Admin : Affiche "Commande non expédiable partiellement"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml

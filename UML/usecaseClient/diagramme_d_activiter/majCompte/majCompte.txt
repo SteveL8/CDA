@@ -1,0 +1,40 @@
+@startuml
+start
+
+:Accéder au compte;
+:Afficher les informations actuelles;
+:Modifier les informations (nom, email, adresse, etc.);
+
+if (Informations valides?) then (oui)
+    :Mettre à jour les informations dans la base de données;
+    :Confirmation de la mise à jour;
+    :Confirmer au client que les informations ont été mises à jour;
+else (non)
+    :Alerte sur les informations manquantes ou incorrectes;
+endif
+
+if (Demande de changement de mot de passe?) then (oui)
+    :Demander l'ancien mot de passe;
+    :Fournir l'ancien et le nouveau mot de passe;
+    if (Ancien mot de passe correct?) then (oui)
+        :Mettre à jour le mot de passe;
+        :Confirmation du changement de mot de passe;
+        :Confirmer que le mot de passe a été changé;
+    else (non)
+        :Alerte : Ancien mot de passe incorrect;
+    endif
+endif
+
+if (Demande d'ajout d'une nouvelle adresse de livraison?) then (oui)
+    :Saisir les détails de la nouvelle adresse;
+    :Ajouter la nouvelle adresse dans la base;
+    :Confirmer que l'adresse de livraison a été ajoutée;
+endif
+
+if (Échec de mise à jour?) then (oui)
+    :Alerte sur l'échec de la mise à jour, réessayer plus tard;
+endif
+
+stop
+@enduml
+

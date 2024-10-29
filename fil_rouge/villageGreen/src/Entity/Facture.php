@@ -17,14 +17,17 @@ class Facture
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateFacture = null;
 
-    #[ORM\Column]
-    private ?int $montantHt = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $montantHT = null;
 
-    #[ORM\Column]
-    private ?int $montantTtc = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $montantTTC = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typePaiment = null;
+    #[ORM\Column(length: 50)]
+    private ?string $typePaiement = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Commande $Commande = null;
 
     public function getId(): ?int
     {
@@ -43,38 +46,50 @@ class Facture
         return $this;
     }
 
-    public function getMontantHt(): ?int
+    public function getMontantHT(): ?string
     {
-        return $this->montantHt;
+        return $this->montantHT;
     }
 
-    public function setMontantHt(int $montantHt): static
+    public function setMontantHT(string $montantHT): static
     {
-        $this->montantHt = $montantHt;
+        $this->montantHT = $montantHT;
 
         return $this;
     }
 
-    public function getMontantTtc(): ?int
+    public function getMontantTTC(): ?string
     {
-        return $this->montantTtc;
+        return $this->montantTTC;
     }
 
-    public function setMontantTtc(int $montantTtc): static
+    public function setMontantTTC(string $montantTTC): static
     {
-        $this->montantTtc = $montantTtc;
+        $this->montantTTC = $montantTTC;
 
         return $this;
     }
 
-    public function getTypePaiment(): ?string
+    public function getTypePaiement(): ?string
     {
-        return $this->typePaiment;
+        return $this->typePaiement;
     }
 
-    public function setTypePaiment(string $typePaiment): static
+    public function setTypePaiement(string $typePaiement): static
     {
-        $this->typePaiment = $typePaiment;
+        $this->typePaiement = $typePaiement;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->Commande;
+    }
+
+    public function setCommande(?Commande $Commande): static
+    {
+        $this->Commande = $Commande;
 
         return $this;
     }

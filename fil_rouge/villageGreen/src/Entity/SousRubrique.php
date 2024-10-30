@@ -18,27 +18,21 @@ class SousRubrique
     #[ORM\Column(length: 50)]
     private ?string $nomSousRubrique = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sousRubrique')]
-    private ?Rubrique $rubrique = null;
-
     #[ORM\ManyToOne(inversedBy: 'sousRubriques')]
-    private ?Rubrique $Rubrique = null;
+    #[ORM\JoinColumn(nullable: false)] // En général, une sous-rubrique appartient toujours à une rubrique
+    private ?Rubrique $rubrique = null;
 
     /**
      * @var Collection<int, Produit>
      */
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'sousRubrique')]
-    private Collection $Produit;
-
-    /**
-     * @var Collection<int, Produit>
-     */
-    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'SousRubrique')]
     private Collection $produits;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
     public function __construct()
     {
-        $this->Produit = new ArrayCollection();
         $this->produits = new ArrayCollection();
     }
 
@@ -74,15 +68,15 @@ class SousRubrique
     /**
      * @return Collection<int, Produit>
      */
-    public function getProduit(): Collection
+    public function getProduits(): Collection
     {
-        return $this->Produit;
+        return $this->produits;
     }
 
     public function addProduit(Produit $produit): static
     {
-        if (!$this->Produit->contains($produit)) {
-            $this->Produit->add($produit);
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
             $produit->setSousRubrique($this);
         }
 
@@ -91,7 +85,7 @@ class SousRubrique
 
     public function removeProduit(Produit $produit): static
     {
-        if ($this->Produit->removeElement($produit)) {
+        if ($this->produits->removeElement($produit)) {
             // set the owning side to null (unless already changed)
             if ($produit->getSousRubrique() === $this) {
                 $produit->setSousRubrique(null);
@@ -101,11 +95,15 @@ class SousRubrique
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduits(): Collection
+    public function getImage(): ?string
     {
-        return $this->produits;
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

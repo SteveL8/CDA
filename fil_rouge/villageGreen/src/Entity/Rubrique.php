@@ -30,6 +30,9 @@ class Rubrique
     #[ORM\OneToMany(targetEntity: SousRubrique::class, mappedBy: 'Rubrique')]
     private Collection $sousRubriques;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->sousRubrique = new ArrayCollection();
@@ -89,5 +92,17 @@ class Rubrique
     public function getSousRubriques(): Collection
     {
         return $this->sousRubriques;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

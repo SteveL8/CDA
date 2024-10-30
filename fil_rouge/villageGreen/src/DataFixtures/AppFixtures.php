@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
         // Création d'un nouveau Produit
         $p1 = new Produit();
         $p1->setLibelleCourt("Violon")
-           ->setPrixAchat(150)
+           ->setPrixAchat(600)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
 
         $p2 = new Produit();
         $p2->setLibelleCourt("Violon alto")
-           ->setPrixAchat(150)
+           ->setPrixAchat(870)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
 
         $p3 = new Produit();
         $p3->setLibelleCourt("Violoncelle")
-           ->setPrixAchat(150)
+           ->setPrixAchat(430)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
 
         $p4 = new Produit();
         $p4->setLibelleCourt("Contrebasse")
-           ->setPrixAchat(150)
+           ->setPrixAchat(1600)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -99,7 +99,7 @@ class AppFixtures extends Fixture
 
         $p6 = new Produit();
         $p6->setLibelleCourt("Harpe")
-           ->setPrixAchat(150)
+           ->setPrixAchat(6000)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -111,7 +111,7 @@ class AppFixtures extends Fixture
 
         $p7 = new Produit();
         $p7->setLibelleCourt("Clavecin")
-           ->setPrixAchat(150)
+           ->setPrixAchat(5000)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
 
         $p8 = new Produit();
         $p8->setLibelleCourt("Piano")
-           ->setPrixAchat(150)
+           ->setPrixAchat(2500)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -143,7 +143,7 @@ class AppFixtures extends Fixture
 
         $p9 = new Produit();
         $p9->setLibelleCourt("Tympanon")
-           ->setPrixAchat(150)
+           ->setPrixAchat(10)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
 
         $p10 = new Produit();
         $p10->setLibelleCourt("Tambours à chaudron")
-           ->setPrixAchat(150)
+           ->setPrixAchat(100)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -182,7 +182,7 @@ class AppFixtures extends Fixture
 
         $p11 = new Produit();
         $p11->setLibelleCourt("Tambours tubulaires cylindriques")
-           ->setPrixAchat(150)
+           ->setPrixAchat(50)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -194,7 +194,7 @@ class AppFixtures extends Fixture
 
         $p12 = new Produit();
         $p12->setLibelleCourt("Tambours en forme")
-           ->setPrixAchat(150)
+           ->setPrixAchat(40)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -213,8 +213,8 @@ class AppFixtures extends Fixture
         $manager->persist($sr5);
 
         $p13 = new Produit();
-        $p13->setLibelleCourt("Le castagnettes")
-           ->setPrixAchat(150)
+        $p13->setLibelleCourt("Le triangle")
+           ->setPrixAchat(7)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -226,7 +226,7 @@ class AppFixtures extends Fixture
 
         $p14 = new Produit();
         $p14->setLibelleCourt("Les castagnettes")
-           ->setPrixAchat(150)
+           ->setPrixAchat(30)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -238,7 +238,7 @@ class AppFixtures extends Fixture
 
         $p15 = new Produit();
         $p15->setLibelleCourt("Les cloche")
-           ->setPrixAchat(150)
+           ->setPrixAchat(250)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -265,7 +265,7 @@ class AppFixtures extends Fixture
 
         $p16 = new Produit();
         $p16->setLibelleCourt("La trompette")
-           ->setPrixAchat(150)
+           ->setPrixAchat(50)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -277,7 +277,7 @@ class AppFixtures extends Fixture
 
         $p17 = new Produit();
         $p17->setLibelleCourt("Le cornet")
-           ->setPrixAchat(150)
+           ->setPrixAchat(200)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -289,7 +289,7 @@ class AppFixtures extends Fixture
 
         $p18 = new Produit();
         $p18->setLibelleCourt("Le bugle")
-           ->setPrixAchat(150)
+           ->setPrixAchat(3000)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -309,7 +309,7 @@ class AppFixtures extends Fixture
 
         $p19 = new Produit();
         $p19->setLibelleCourt("Le cor")
-           ->setPrixAchat(150)
+           ->setPrixAchat(700)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -321,7 +321,7 @@ class AppFixtures extends Fixture
 
         $p20 = new Produit();
         $p20->setLibelleCourt("Le saxhorn alto")
-           ->setPrixAchat(150)
+           ->setPrixAchat(750)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -341,7 +341,7 @@ class AppFixtures extends Fixture
 
         $p21 = new Produit();
         $p21->setLibelleCourt("L'euphonium")
-           ->setPrixAchat(150)
+           ->setPrixAchat(2000)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -353,7 +353,7 @@ class AppFixtures extends Fixture
 
         $p22 = new Produit();
         $p22->setLibelleCourt("Le baryton")
-           ->setPrixAchat(150)
+           ->setPrixAchat(900)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)
@@ -365,7 +365,7 @@ class AppFixtures extends Fixture
 
         $p22 = new Produit();
         $p22->setLibelleCourt("Le trombone")
-           ->setPrixAchat(150)
+           ->setPrixAchat(800)
            ->setImage("")
            ->setStock(15)
            ->setStatut(true)

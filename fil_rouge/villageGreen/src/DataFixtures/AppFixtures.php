@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
         // Création de nouvelle catégorie(Rubrique ici)
         $r1 = new Rubrique();
         $r1->setNomRubrique("Instrument à cordes");
-        $r1->setImage("");
+        $r1->setImage("fil_rouge/villageGreen/public/img/r1.jpg");
 
         $manager->persist($r1);
 
@@ -33,6 +33,7 @@ class AppFixtures extends Fixture
         $p1->setLibelleCourt("Violon")
            ->setPrixAchat(600)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Violon classique")
@@ -45,6 +46,7 @@ class AppFixtures extends Fixture
         $p2->setLibelleCourt("Violon alto")
            ->setPrixAchat(870)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Violon alto")
@@ -57,6 +59,7 @@ class AppFixtures extends Fixture
         $p3->setLibelleCourt("Violoncelle")
            ->setPrixAchat(430)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Violoncelle classique")
@@ -69,6 +72,7 @@ class AppFixtures extends Fixture
         $p4->setLibelleCourt("Contrebasse")
            ->setPrixAchat(1600)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Contrebasse classique")
@@ -89,6 +93,7 @@ class AppFixtures extends Fixture
         $p5->setLibelleCourt("Guitare")
            ->setPrixAchat(150)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Guitare classique")
@@ -101,6 +106,7 @@ class AppFixtures extends Fixture
         $p6->setLibelleCourt("Harpe")
            ->setPrixAchat(6000)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Harpe classique")
@@ -113,6 +119,7 @@ class AppFixtures extends Fixture
         $p7->setLibelleCourt("Clavecin")
            ->setPrixAchat(5000)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Clavecin classique")
@@ -133,6 +140,7 @@ class AppFixtures extends Fixture
         $p8->setLibelleCourt("Piano")
            ->setPrixAchat(2500)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Piano classique")
@@ -145,6 +153,7 @@ class AppFixtures extends Fixture
         $p9->setLibelleCourt("Tympanon")
            ->setPrixAchat(10)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Tympanon classique")
@@ -164,7 +173,7 @@ class AppFixtures extends Fixture
         $sr4 = new SousRubrique();
         $sr4->setNomSousRubrique("Les membranophones");
         $sr4->setImage("");
-        $sr4->setRubrique($r1);
+        $sr4->setRubrique($r2);
 
         $manager->persist($sr4);
 
@@ -172,6 +181,7 @@ class AppFixtures extends Fixture
         $p10->setLibelleCourt("Tambours à chaudron")
            ->setPrixAchat(100)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Tambours à chaudron classique")
@@ -184,6 +194,7 @@ class AppFixtures extends Fixture
         $p11->setLibelleCourt("Tambours tubulaires cylindriques")
            ->setPrixAchat(50)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Tambours tubulaires cylindriques classique")
@@ -196,6 +207,7 @@ class AppFixtures extends Fixture
         $p12->setLibelleCourt("Tambours en forme")
            ->setPrixAchat(40)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Tambours en forme classique")
@@ -208,7 +220,7 @@ class AppFixtures extends Fixture
         $sr5 = new SousRubrique();
         $sr5->setNomSousRubrique("Idiophones");
         $sr5->setImage("");
-        $sr5->setRubrique($r1);
+        $sr5->setRubrique($r2);
 
         $manager->persist($sr5);
 
@@ -216,6 +228,7 @@ class AppFixtures extends Fixture
         $p13->setLibelleCourt("Le triangle")
            ->setPrixAchat(7)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le triangle classique")
@@ -228,6 +241,7 @@ class AppFixtures extends Fixture
         $p14->setLibelleCourt("Les castagnettes")
            ->setPrixAchat(30)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Les castagnettes classique")
@@ -240,6 +254,7 @@ class AppFixtures extends Fixture
         $p15->setLibelleCourt("Les cloche")
            ->setPrixAchat(250)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Les cloche classique")
@@ -259,7 +274,7 @@ class AppFixtures extends Fixture
         $sr6 = new SousRubrique();
         $sr6->setNomSousRubrique("Les cuivres de petite taille");
         $sr6->setImage("");
-        $sr6->setRubrique($r1);
+        $sr6->setRubrique($r3);
 
         $manager->persist($sr6);
 
@@ -267,6 +282,7 @@ class AppFixtures extends Fixture
         $p16->setLibelleCourt("La trompette")
            ->setPrixAchat(50)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("La trompette classique")
@@ -279,6 +295,7 @@ class AppFixtures extends Fixture
         $p17->setLibelleCourt("Le cornet")
            ->setPrixAchat(200)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le cornet classique")
@@ -291,6 +308,7 @@ class AppFixtures extends Fixture
         $p18->setLibelleCourt("Le bugle")
            ->setPrixAchat(3000)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le bugle classique")
@@ -303,7 +321,7 @@ class AppFixtures extends Fixture
         $sr7 = new SousRubrique();
         $sr7->setNomSousRubrique("Les cuivres de taille moyenne");
         $sr7->setImage("");
-        $sr7->setRubrique($r1);
+        $sr7->setRubrique($r3);
 
         $manager->persist($sr7);
 
@@ -311,6 +329,7 @@ class AppFixtures extends Fixture
         $p19->setLibelleCourt("Le cor")
            ->setPrixAchat(700)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le cor classique")
@@ -323,6 +342,7 @@ class AppFixtures extends Fixture
         $p20->setLibelleCourt("Le saxhorn alto")
            ->setPrixAchat(750)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le saxhorn alto classique")
@@ -335,7 +355,7 @@ class AppFixtures extends Fixture
         $sr8 = new SousRubrique();
         $sr8->setNomSousRubrique("Les cuivres de drande taille");
         $sr8->setImage("");
-        $sr8->setRubrique($r1);
+        $sr8->setRubrique($r3);
 
         $manager->persist($sr8);
 
@@ -343,6 +363,7 @@ class AppFixtures extends Fixture
         $p21->setLibelleCourt("L'euphonium")
            ->setPrixAchat(2000)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("L'euphonium classique")
@@ -355,6 +376,7 @@ class AppFixtures extends Fixture
         $p22->setLibelleCourt("Le baryton")
            ->setPrixAchat(900)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le baryton classique")
@@ -363,17 +385,18 @@ class AppFixtures extends Fixture
 
         $manager->persist($p22);
 
-        $p22 = new Produit();
-        $p22->setLibelleCourt("Le trombone")
+        $p23 = new Produit();
+        $p23->setLibelleCourt("Le trombone")
            ->setPrixAchat(800)
            ->setImage("")
+           ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
            ->setLibelleLong("Le trombone classique")
            ->setRefFournisseur("GC001")
            ->setSousRubrique($sr8);
 
-        $manager->persist($p22);
+        $manager->persist($p23);
 
         $manager->flush();
     }

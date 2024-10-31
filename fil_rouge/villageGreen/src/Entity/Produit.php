@@ -30,7 +30,7 @@ class Produit
     #[ORM\Column]
     private ?bool $statut = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $libelleCourt = null;
 
     #[ORM\Column(length: 200)]
@@ -41,9 +41,6 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'Produit')]
     private ?SousRubrique $sousRubrique = null;
-
-    #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?SousRubrique $SousRubrique = null;
 
     /**
      * @var Collection<int, Contient>

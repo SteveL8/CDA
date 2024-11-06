@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
- {% block body %}
-     <div class="container">
-         <div class="row mt-5">
-             <div class="col-sm-8 offset-sm-2">
-                 <h1>Première page web avec Symfony</h1>
-                 <p>Hello World !!!</p>
-                 <h1>{{ rubrique.nomRubrique }}</h1>
-<img src="{{ asset(rubrique.image) }}" alt="Image de la rubrique {{ rubrique.nomRubrique }}">
-             </div>
-         </div>
-     </div>
- {% endblock %}
+
+{% block title %}Rubrique - {{ rubrique.nomRubrique }}{% endblock %}
+
+{% block body %}
+    <h1>{{ rubrique.nomRubrique }}</h1>
+
+    {# Affichez l'image de la rubrique #}
+    {% if rubrique.image %}
+        <img src="{{ asset('fil_rouge/villageGreen/public/img/r1.jpg' ~ rubrique.image) }}" alt="{{ rubrique.nomRubrique }}" />
+    {% else %}
+        <p>Aucune image disponible pour cette rubrique.</p>
+    {% endif %}
+{% endblock %}

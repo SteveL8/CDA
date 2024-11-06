@@ -18,11 +18,6 @@ class Rubrique
     #[ORM\Column(length: 50)]
     private ?string $nomRubrique = null;
 
-    /**
-     * @var Collection<int, sousRubrique>
-     */
-    #[ORM\OneToMany(targetEntity: sousRubrique::class, mappedBy: 'rubrique')]
-    private Collection $sousRubrique;
 
     /**
      * @var Collection<int, SousRubrique>
@@ -35,7 +30,6 @@ class Rubrique
 
     public function __construct()
     {
-        $this->sousRubrique = new ArrayCollection();
         $this->sousRubriques = new ArrayCollection();
     }
 
@@ -52,36 +46,6 @@ class Rubrique
     public function setNomRubrique(string $nomRubrique): static
     {
         $this->nomRubrique = $nomRubrique;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, sousRubrique>
-     */
-    public function getSousRubrique(): Collection
-    {
-        return $this->sousRubrique;
-    }
-
-    public function addSousRubrique(sousRubrique $sousRubrique): static
-    {
-        if (!$this->sousRubrique->contains($sousRubrique)) {
-            $this->sousRubrique->add($sousRubrique);
-            $sousRubrique->setRubrique($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSousRubrique(sousRubrique $sousRubrique): static
-    {
-        if ($this->sousRubrique->removeElement($sousRubrique)) {
-            // set the owning side to null (unless already changed)
-            if ($sousRubrique->getRubrique() === $this) {
-                $sousRubrique->setRubrique(null);
-            }
-        }
 
         return $this;
     }
@@ -106,3 +70,4 @@ class Rubrique
         return $this;
     }
 }
+

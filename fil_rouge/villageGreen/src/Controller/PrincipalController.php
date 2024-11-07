@@ -11,19 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class PrincipalController extends AbstractController
 {
     #[Route('/', name: 'app_principal')]
-    public function showFirstRubrique(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        // Récupération de la première rubrique 
-        $rubrique = $entityManager->getRepository(Rubrique::class)->findOneBy([]);
+        // Récupérer toutes les rubriques
+        $rubriques = $entityManager->getRepository(Rubrique::class)->findAll();
 
-        // Vérification que la rubrique existe
-        if (!$rubrique) {
-            throw $this->createNotFoundException('La rubrique n\'existe pas');
-        }
-
-        // Envoie de la rubrique au template
         return $this->render('principal/index.html.twig', [
-            'rubrique' => $rubrique,
+            'rubriques' => $rubriques,
         ]);
     }
 }

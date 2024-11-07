@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
         // Création de nouvelle catégorie(Rubrique ici)
         $r1 = new Rubrique();
         $r1->setNomRubrique("Instrument à cordes");
-        $r1->setImage("fil_rouge/villageGreen/public/img/r1.jpg");
+        $r1->setImage("img/r1.jpg");
 
         $manager->persist($r1);
 
@@ -165,7 +165,7 @@ class AppFixtures extends Fixture
         // Création d'une nouvelle catégorie
         $r2 = new Rubrique();
         $r2->setNomRubrique("À percussion");
-        $r2->setImage("");
+        $r2->setImage("img/r2.jpg");
 
         $manager->persist($r2);
 
@@ -266,7 +266,7 @@ class AppFixtures extends Fixture
         // Création d'une nouvelle catégorie
         $r3 = new Rubrique();
         $r3->setNomRubrique("Les cuivres");
-        $r3->setImage("");
+        $r3->setImage("img/r3.jpeg");
 
         $manager->persist($r3);
 

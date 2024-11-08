@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
         // Création de sous catégorie (SousRubrique)
         $sr1 = new SousRubrique();
         $sr1->setNomSousRubrique("Cordes frottées");
-        $sr1->setImage("");
+        $sr1->setImage("img\sr1.jpg");
         $sr1->setRubrique($r1); // Lie la sous rubrique(sr1) a une rubrique(r1)
 
         $manager->persist($sr1);
@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $p1 = new Produit();
         $p1->setLibelleCourt("Violon")
            ->setPrixAchat(600)
-           ->setImage("")
+           ->setImage("img\p1.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
         $p2 = new Produit();
         $p2->setLibelleCourt("Violon alto")
            ->setPrixAchat(870)
-           ->setImage("")
+           ->setImage("img\p2.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
         $p3 = new Produit();
         $p3->setLibelleCourt("Violoncelle")
            ->setPrixAchat(430)
-           ->setImage("")
+           ->setImage("img\p3.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
         $p4 = new Produit();
         $p4->setLibelleCourt("Contrebasse")
            ->setPrixAchat(1600)
-           ->setImage("")
+           ->setImage("img\p4.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -84,7 +84,7 @@ class AppFixtures extends Fixture
         //
         $sr2 = new SousRubrique();
         $sr2->setNomSousRubrique("Cordes pincées");
-        $sr2->setImage("");
+        $sr2->setImage("img\sr2.webp");
         $sr2->setRubrique($r1);
 
         $manager->persist($sr2);
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
         $p5 = new Produit();
         $p5->setLibelleCourt("Guitare")
            ->setPrixAchat(150)
-           ->setImage("")
+           ->setImage("img\p5.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
         $p6 = new Produit();
         $p6->setLibelleCourt("Harpe")
            ->setPrixAchat(6000)
-           ->setImage("")
+           ->setImage("img\p6.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -118,7 +118,7 @@ class AppFixtures extends Fixture
         $p7 = new Produit();
         $p7->setLibelleCourt("Clavecin")
            ->setPrixAchat(5000)
-           ->setImage("")
+           ->setImage("img\p7.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
         //
         $sr3 = new SousRubrique();
         $sr3->setNomSousRubrique("Cordes frappées");
-        $sr3->setImage("");
+        $sr3->setImage("img\sr3.webp");
         $sr3->setRubrique($r1);
 
         $manager->persist($sr3);
@@ -139,7 +139,7 @@ class AppFixtures extends Fixture
         $p8 = new Produit();
         $p8->setLibelleCourt("Piano")
            ->setPrixAchat(2500)
-           ->setImage("")
+           ->setImage("img\p8.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -152,7 +152,7 @@ class AppFixtures extends Fixture
         $p9 = new Produit();
         $p9->setLibelleCourt("Tympanon")
            ->setPrixAchat(10)
-           ->setImage("")
+           ->setImage("img\p9.png")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -172,15 +172,15 @@ class AppFixtures extends Fixture
         //
         $sr4 = new SousRubrique();
         $sr4->setNomSousRubrique("Les membranophones");
-        $sr4->setImage("");
+        $sr4->setImage("img\sr4.jpg");
         $sr4->setRubrique($r2);
 
         $manager->persist($sr4);
 
         $p10 = new Produit();
-        $p10->setLibelleCourt("Tambours à chaudron")
+        $p10->setLibelleCourt("Tambours Indien")
            ->setPrixAchat(100)
-           ->setImage("")
+           ->setImage("img\p10.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -193,7 +193,7 @@ class AppFixtures extends Fixture
         $p11 = new Produit();
         $p11->setLibelleCourt("Tambours tubulaires cylindriques")
            ->setPrixAchat(50)
-           ->setImage("")
+           ->setImage("img\p11.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -206,7 +206,7 @@ class AppFixtures extends Fixture
         $p12 = new Produit();
         $p12->setLibelleCourt("Tambours en forme")
            ->setPrixAchat(40)
-           ->setImage("")
+           ->setImage("img\p12.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -219,7 +219,7 @@ class AppFixtures extends Fixture
         //
         $sr5 = new SousRubrique();
         $sr5->setNomSousRubrique("Idiophones");
-        $sr5->setImage("");
+        $sr5->setImage("img\sr5.jpg");
         $sr5->setRubrique($r2);
 
         $manager->persist($sr5);
@@ -227,7 +227,7 @@ class AppFixtures extends Fixture
         $p13 = new Produit();
         $p13->setLibelleCourt("Le triangle")
            ->setPrixAchat(7)
-           ->setImage("")
+           ->setImage("img\p13.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -240,7 +240,7 @@ class AppFixtures extends Fixture
         $p14 = new Produit();
         $p14->setLibelleCourt("Les castagnettes")
            ->setPrixAchat(30)
-           ->setImage("")
+           ->setImage("img\p14.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -253,7 +253,7 @@ class AppFixtures extends Fixture
         $p15 = new Produit();
         $p15->setLibelleCourt("Les cloche")
            ->setPrixAchat(250)
-           ->setImage("")
+           ->setImage("img\p15.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -273,7 +273,7 @@ class AppFixtures extends Fixture
         //
         $sr6 = new SousRubrique();
         $sr6->setNomSousRubrique("Les cuivres de petite taille");
-        $sr6->setImage("");
+        $sr6->setImage("img\sr6.jpg");
         $sr6->setRubrique($r3);
 
         $manager->persist($sr6);
@@ -281,7 +281,7 @@ class AppFixtures extends Fixture
         $p16 = new Produit();
         $p16->setLibelleCourt("La trompette")
            ->setPrixAchat(50)
-           ->setImage("")
+           ->setImage("img\p16.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -294,7 +294,7 @@ class AppFixtures extends Fixture
         $p17 = new Produit();
         $p17->setLibelleCourt("Le cornet")
            ->setPrixAchat(200)
-           ->setImage("")
+           ->setImage("img\p17.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -307,7 +307,7 @@ class AppFixtures extends Fixture
         $p18 = new Produit();
         $p18->setLibelleCourt("Le bugle")
            ->setPrixAchat(3000)
-           ->setImage("")
+           ->setImage("img\p18.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -320,7 +320,7 @@ class AppFixtures extends Fixture
         //
         $sr7 = new SousRubrique();
         $sr7->setNomSousRubrique("Les cuivres de taille moyenne");
-        $sr7->setImage("");
+        $sr7->setImage("img\sr7.jpg");
         $sr7->setRubrique($r3);
 
         $manager->persist($sr7);
@@ -328,7 +328,7 @@ class AppFixtures extends Fixture
         $p19 = new Produit();
         $p19->setLibelleCourt("Le cor")
            ->setPrixAchat(700)
-           ->setImage("")
+           ->setImage("img\p19.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -341,7 +341,7 @@ class AppFixtures extends Fixture
         $p20 = new Produit();
         $p20->setLibelleCourt("Le saxhorn alto")
            ->setPrixAchat(750)
-           ->setImage("")
+           ->setImage("img\p20.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -354,7 +354,7 @@ class AppFixtures extends Fixture
         //
         $sr8 = new SousRubrique();
         $sr8->setNomSousRubrique("Les cuivres de drande taille");
-        $sr8->setImage("");
+        $sr8->setImage("img\sr8.jpg");
         $sr8->setRubrique($r3);
 
         $manager->persist($sr8);
@@ -362,7 +362,7 @@ class AppFixtures extends Fixture
         $p21 = new Produit();
         $p21->setLibelleCourt("L'euphonium")
            ->setPrixAchat(2000)
-           ->setImage("")
+           ->setImage("img\p21.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -373,9 +373,9 @@ class AppFixtures extends Fixture
         $manager->persist($p21);
 
         $p22 = new Produit();
-        $p22->setLibelleCourt("Le baryton")
+        $p22->setLibelleCourt("Le saxophone baryton")
            ->setPrixAchat(900)
-           ->setImage("")
+           ->setImage("img\p22.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)
@@ -388,7 +388,7 @@ class AppFixtures extends Fixture
         $p23 = new Produit();
         $p23->setLibelleCourt("Le trombone")
            ->setPrixAchat(800)
-           ->setImage("")
+           ->setImage("img\p23.jpg")
            ->setDescription("")
            ->setStock(15)
            ->setStatut(true)

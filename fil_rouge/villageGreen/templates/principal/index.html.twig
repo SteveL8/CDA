@@ -3,15 +3,15 @@
 {% block title %}Rubriques{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1 class="text-center">Nos Rubriques</h1>
-
+   <div class="container mt-4">
         <div class="row">
             {% for rubrique in rubriques %}
-                <div class="col-md-4 mb-4"> {# Chaque rubrique occupe 1/3 de la largeur de la ligne #}
-                    <div class="card h-100">
+                <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                    <div class="card w-100">
                         {% if rubrique.image %}
-                            <img src="{{ asset(rubrique.image) }}" class="card-img-top" alt="{{ rubrique.nomRubrique }}">
+                            <img src="{{ asset(rubrique.image) }}" alt="{{ rubrique.nomRubrique }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <p class="text-center p-3">Aucune image disponible pour cette rubrique.</p>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ rubrique.nomRubrique }}</h5>

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        {% if rubrique is defined %}
+            <h1 class="mb-4">Sous-Rubriques de {{ rubrique.nomRubrique }}</h1>
+            <div class="row">
+                {% if sousRubriques is defined and sousRubriques|length > 0 %}
+                    {% for sousRubrique in sousRubriques %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <img src="{{ asset(sousRubrique.image) }}" class="card-img-top" alt="{{ sousRubrique.nomSousRubrique }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ sousRubrique.nomSousRubrique }}</h5>
+                                    <p class="card-text">{{ sousRubrique.description ?? 'Pas de description disponible.' }}</p>
+                                    <a href="#" class="btn btn-primary">Voir plus</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune sous-rubrique disponible.</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Aucune rubrique trouvée.</p>
+        {% endif %}
+    </div>
+{% endblock %}

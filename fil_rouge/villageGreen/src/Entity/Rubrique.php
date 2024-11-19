@@ -22,7 +22,7 @@ class Rubrique
     /**
      * @var Collection<int, SousRubrique>
      */
-    #[ORM\OneToMany(targetEntity: SousRubrique::class, mappedBy: 'Rubrique')]
+    #[ORM\OneToMany(targetEntity: SousRubrique::class, mappedBy: 'rubrique')]
     private Collection $sousRubriques;
 
     #[ORM\Column(length: 255)]

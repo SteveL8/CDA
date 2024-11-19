@@ -1,29 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Sous-Rubriques{% endblock %}
+
 {% block body %}
-    <div class="container mt-5">
-        {% if rubrique is defined %}
-            <h1 class="mb-4">Sous-Rubriques de {{ rubrique.nomRubrique }}</h1>
-            <div class="row">
-                {% if sousRubriques is defined and sousRubriques|length > 0 %}
-                    {% for sousRubrique in sousRubriques %}
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <img src="{{ asset(sousRubrique.image) }}" class="card-img-top" alt="{{ sousRubrique.nomSousRubrique }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ sousRubrique.nomSousRubrique }}</h5>
-                                    <p class="card-text">{{ sousRubrique.description ?? 'Pas de description disponible.' }}</p>
-                                    <a href="#" class="btn btn-primary">Voir plus</a>
-                                </div>
-                            </div>
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des Sous-Rubriques</h1>
+    <div class="row">
+        {% if sousRubriques is defined and sousRubriques|length > 0 %}
+            {% for sousRubrique in sousRubriques %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ asset(sousRubrique.image) }}" class="card-img-top" alt="{{ sousRubrique.nomSousRubrique }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sousRubrique.nomSousRubrique }}</h5>
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <p>Aucune sous-rubrique disponible.</p>
-                {% endif %}
-            </div>
+                    </div>
+                </div>
+            {% endfor %}
         {% else %}
-            <p>Aucune rubrique trouvée.</p>
+            <p>Aucune sous-rubrique disponible.</p>
         {% endif %}
     </div>
+</div>
 {% endblock %}

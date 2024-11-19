@@ -16,6 +16,7 @@ class PrincipalController extends AbstractController
     {
         // Récupérer toutes les rubriques
         $rubriques = $entityManager->getRepository(Rubrique::class)->findAll();
+        
 
         return $this->render('principal/index.html.twig', [
             'rubriques' => $rubriques,
@@ -23,29 +24,20 @@ class PrincipalController extends AbstractController
     }
 
     #[Route('/rubrique/{id}/sous_rubriques', name: 'app_rubrique_sous')]
-public function showSousRubriques(int $id, EntityManagerInterface $entityManager): Response
-{
-    // Récupérer la rubrique avec ses sous-rubriques
-    $rubrique = $entityManager->getRepository(Rubrique::class)->find($id);
-
-    if (!$rubrique) {
-        throw $this->createNotFoundException('Rubrique non trouvée');
-    }
-
-    // Forcer le chargement des sous-rubriques et les passer en tableau pour éviter le lazy loading
-    $sousRubriques = $rubrique->getSousRubriques()->toArray(); // Cela garantit que la collection est initialisée
-
-    // Vérifier si sous-rubriques est bien rempli
-    if (empty($sousRubriques)) {
-        $sousRubriques = null;
-    }
-
-    return $this->render('principal/sous_rubriques.html.twig', [
-        'rubrique' => $rubrique,
-        'sousRubriques' => $sousRubriques,  // Passer la collection initialisée
-    ]);
-}
-
+    public function showSousRubriques(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer les sous-rubriques directement via une requête DQL
+        $sousRubriques = $entityManager->getRepository(SousRubrique::class)
+            ->findBy(['rubrique' => $id]);
     
+        if (!$sousRubriques) {
+            throw $this->createNotFoundException('Aucune sous-rubrique trouvée pour cette rubrique.');
+        }
+    
+        // Transmet les sous-rubriques au template
+        return $this->render('principal/sous_rubriques.html.twig', [
+            'sousRubriques' => $sousRubriques,
+        ]);
+    }
 
 }

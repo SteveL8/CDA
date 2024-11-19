@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
-        // Création de nouvelle catégorie(Rubrique ici)
+        /*// Création de nouvelle catégorie(Rubrique ici)
         $r1 = new Rubrique();
         $r1->setNomRubrique("Instrument à cordes");
         $r1->setImage("img/r1.jpg");
@@ -400,4 +400,132 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
+}*/
+
+
+ // Définition des rubriques principales
+ $rubriques = [
+   [
+       'nom' => "Instrument à cordes",
+       'image' => "img/r1.jpg",
+       'sousRubriques' => [
+           [
+               'nom' => "Cordes frottées",
+               'image' => "img/sr1.jpg",
+               'produits' => [
+                   ["Violon", 600, "img/p1.jpg", "Violon classique"],
+                   ["Violon alto", 870, "img/p2.jpg", "Violon alto"],
+                   ["Violoncelle", 430, "img/p3.jpg", "Violoncelle classique"],
+                   ["Contrebasse", 1600, "img/p4.jpg", "Contrebasse classique"],
+               ]
+           ],
+           [
+               'nom' => "Cordes pincées",
+               'image' => "img/sr2.webp",
+               'produits' => [
+                   ["Guitare", 150, "img/p5.jpg", "Guitare classique"],
+                   ["Harpe", 6000, "img/p6.jpg", "Harpe classique"],
+                   ["Clavecin", 5000, "img/p7.jpg", "Clavecin classique"],
+                   ["Tympanon", 10, "img/p9.png", "Tympanon classique"],
+               ]
+           ],
+           [
+               'nom' => "Cordes frappées",
+               'image' => "img/sr3.webp",
+               'produits' => [
+                   ["Piano", 2500, "img/p8.jpg", "Piano classique"],
+               ]
+           ],
+       ]
+   ],
+   [
+       'nom' => "À percussion",
+       'image' => "img/r2.jpg",
+       'sousRubriques' => [
+           [
+               'nom' => "Les membranophones",
+               'image' => "img/sr4.jpg",
+               'produits' => [
+                   ["Tambours Indien", 100, "img/p10.jpg", "Tambours à chaudron classique"],
+                   ["Tambours tubulaires cylindriques", 50, "img/p11.jpg", "Tambours tubulaires cylindriques classique"],
+                   ["Tambours en forme", 40, "img/p12.jpg", "Tambours en forme classique"],
+               ]
+           ],
+           [
+               'nom' => "Idiophones",
+               'image' => "img/sr5.jpg",
+               'produits' => [
+                   ["Le triangle", 7, "img/p13.jpg", "Le triangle classique"],
+                   ["Les castagnettes", 30, "img/p14.jpg", "Les castagnettes classique"],
+                   ["Les cloches", 250, "img/p15.jpg", "Les cloches classique"],
+               ]
+           ],
+       ]
+   ],
+   [
+       'nom' => "Les cuivres",
+       'image' => "img/r3.jpeg",
+       'sousRubriques' => [
+           [
+               'nom' => "Les cuivres de petite taille",
+               'image' => "img/sr6.jpg",
+               'produits' => [
+                   ["La trompette", 50, "img/p16.jpg", "La trompette classique"],
+                   ["Le cornet", 200, "img/p17.jpg", "Le cornet classique"],
+                   ["Le bugle", 3000, "img/p18.jpg", "Le bugle classique"],
+               ]
+           ],
+           [
+               'nom' => "Les cuivres de taille moyenne",
+               'image' => "img/sr7.jpg",
+               'produits' => [
+                   ["Le cor", 700, "img/p19.jpg", "Le cor classique"],
+                   ["Le saxhorn alto", 750, "img/p20.jpg", "Le saxhorn alto classique"],
+               ]
+           ],
+           [
+               'nom' => "Les cuivres de grande taille",
+               'image' => "img/sr8.jpg",
+               'produits' => [
+                   ["L'euphonium", 2000, "img/p21.jpg", "L'euphonium classique"],
+                   ["Le saxophone baryton", 900, "img/p22.jpg", "Le baryton classique"],
+                   ["Le trombone", 800, "img/p23.jpg", "Le trombone classique"],
+               ]
+           ],
+       ]
+   ],
+];
+
+// Création des rubriques, sous-rubriques et produits
+foreach ($rubriques as $rubriqueData) {
+   $rubrique = new Rubrique();
+   $rubrique->setNomRubrique($rubriqueData['nom']);
+   $rubrique->setImage($rubriqueData['image']);
+   $manager->persist($rubrique);
+
+   foreach ($rubriqueData['sousRubriques'] as $sousRubriqueData) {
+       $sousRubrique = new SousRubrique();
+       $sousRubrique->setNomSousRubrique($sousRubriqueData['nom']);
+       $sousRubrique->setImage($sousRubriqueData['image']);
+       $sousRubrique->setRubrique($rubrique);
+       $manager->persist($sousRubrique);
+
+       foreach ($sousRubriqueData['produits'] as $produitData) {
+           $produit = new Produit();
+           $produit->setLibelleCourt($produitData[0])
+                   ->setPrixAchat($produitData[1])
+                   ->setImage($produitData[2])
+                   ->setDescription("")
+                   ->setStock(15)
+                   ->setStatut(true)
+                   ->setLibelleLong($produitData[3])
+                   ->setRefFournisseur("GC001")
+                   ->setSousRubrique($sousRubrique);
+           $manager->persist($produit);
+       }
+   }
+}
+
+$manager->flush();
+}
 }

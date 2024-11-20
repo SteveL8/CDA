@@ -10,7 +10,14 @@
             {% for sousRubrique in sousRubriques %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="{{ asset(sousRubrique.image) }}" class="card-img-top" alt="{{ sousRubrique.nomSousRubrique }}">
+                        {% if sousRubrique.image %}
+                        <img src="{{ asset(sousRubrique.image) }}" class="card-img-top img" alt="{{ sousRubrique.nomSousRubrique }}">
+                       {# <a href="{{ path('app_produit', { id: sousRubrique.id }) }}">
+                            
+                        </a>#}    
+                        {% else %}
+                            <p class="text-center p-3">Aucune image disponible pour cette sous-rubrique.</p>
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ sousRubrique.nomSousRubrique }}</h5>
                         </div>

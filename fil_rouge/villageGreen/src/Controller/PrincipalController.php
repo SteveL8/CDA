@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Entity\Rubrique;
 use App\Entity\SousRubrique;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,7 @@ class PrincipalController extends AbstractController
         ]);
     }
 
+
     #[Route('/rubrique/{id}/sous_rubriques', name: 'app_rubrique_sous')]
     public function showSousRubriques(int $id, EntityManagerInterface $entityManager): Response
     {
@@ -38,6 +40,23 @@ class PrincipalController extends AbstractController
         return $this->render('principal/sous_rubriques.html.twig', [
             'sousRubriques' => $sousRubriques,
         ]);
+    }
+
+
+    #[Route('/{id}/produit', name: 'app_produit')]
+    public function showProduit(int $id, EntityManagerInterface $entityManager): Response
+    {
+
+        $produit = $entityManager->getRepository(Produit::class)
+           ->findBy(['sousRubriques' => $id]);
+
+        if (!$produit) {
+            throw $this->createNotFoundException('Aucun produit');
+        }
+
+        return $this->render('principal/produit.html.twig', [
+            
+        ])
     }
 
 }

@@ -1,0 +1,8 @@
+.img {
+    transition: transform 0.3s ease; /* Animation douce de la transformation */
+    cursor: pointer; /* Indique que l'image est cliquable */
+}
+
+.img:hover {
+    transform: scale(1.1); /* Zoom sur l'image (agrandissement à 110%) */
+}

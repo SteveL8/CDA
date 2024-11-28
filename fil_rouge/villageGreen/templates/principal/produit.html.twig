@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1 class="mb-4">Produits</h1>
+		<div class="row">
+			{% if produits is defined and produits|length > 0 %}
+				{% for produit in produits %}
+					<div class="col-md-4 mb-4">
+						<div class="card">
+							{% if produit.image %}
+								<a href="{{ path('app_produit_detail', { id: produit.id }) }}">
+									<img src="{{ asset(produit.image) }}" class="card-img-top img" alt="{{ produit.libelleCourt }}">
+								</a>
+							{% else %}
+								<p class="text-center p-3">Aucune image disponible pour ce produit.</p>
+							{% endif %}
+							<div class="card-body">
+								<h5 class="card-title">{{ produit.libelleLong }}</h5>
+								<p class="card-text">{{ produit.description }}</p>
+								<p class="card-text">
+									<strong>Prix :</strong>
+									{{ produit.prixAchat }}
+									€</p>
+								<p class="card-text">
+									<strong>Statut :</strong>
+									<span class="badge {{ produit.statut ? 'bg-success' : 'bg-danger' }}">
+										{{ produit.statut ? 'En stock' : 'Rupture de stock' }}
+									</span>
+								</p>
+							</div>
+
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<p>Aucun produit disponible.</p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

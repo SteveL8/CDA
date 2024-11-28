@@ -1,26 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rubriques{% endblock %}
+{% block title %}Rubriques
+{% endblock %}
 
 {% block body %}
-   <div class="container mt-5">
-        <div class="row">
-            {% for rubrique in rubriques %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        {% if rubrique.image %}
-                            <a href="{{ path('app_rubrique_sous', { id: rubrique.id }) }}">
-                                <img src="{{ asset(rubrique.image) }}" alt="{{ rubrique.nomRubrique }}" class="card-img-top img-fluid img" style="height: 200px; object-fit: cover;">
-                            </a>
-                        {% else %}
-                            <p class="text-center p-3">Aucune image disponible pour cette rubrique.</p>
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ rubrique.nomRubrique }}</h5>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div class="container mt-5">
+		<div class="row">
+			{% for rubrique in rubriques %}
+				<div class="col-md-4 mb-4">
+					<div class="card h-100">
+						{% if rubrique.image %}
+							<a href="{{ path('app_rubrique_sous', { id: rubrique.id }) }}">
+								<img src="{{ asset(rubrique.image) }}" alt="{{ rubrique.nomRubrique }}" class="card-img-top img-fluid img" style="height: 200px; object-fit: cover;">
+							</a>
+						{% else %}
+							<p class="text-center p-3">Aucune image disponible pour cette rubrique.</p>
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">{{ rubrique.nomRubrique }}</h5>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

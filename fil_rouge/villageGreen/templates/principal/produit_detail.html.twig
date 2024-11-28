@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du produit
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1 class="mb-4">Détails du produit</h1>
+		<div class="card mb-4">
+			{% if produit.image %}
+				<img src="{{ asset(produit.image) }}" class="card-img-top img-fluid" alt="{{ produit.libelleCourt }}">
+			{% else %}
+				<p class="text-center p-3">Aucune image disponible pour ce produit.</p>
+			{% endif %}
+			<div class="card-body">
+				<h5 class="card-title">{{ produit.libelleCourt }}</h5>
+				<p class="card-text">
+					<strong>Description :</strong>
+					{{ produit.description }}
+				</p>
+				<p class="card-text">
+					<strong>Prix :</strong>
+					{{ produit.prixAchat }}
+					€
+				</p>
+				<p class="card-text">
+					<strong>Stock :</strong>
+					{{ produit.stock }}
+				</p>
+				<p class="card-text">
+					<strong>Statut :</strong>
+					{% if produit.statut %}
+						En stock
+					{% else %}
+						Rupture de stock
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		<a href="{{ path('app_principal') }}" class="btn btn-primary">Retour à la liste des rubriques</a>
+	</div>
+{% endblock %}

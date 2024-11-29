@@ -1,8 +1,100 @@
 .img {
-    transition: transform 0.3s ease; /* Animation douce de la transformation */
-    cursor: pointer; /* Indique que l'image est cliquable */
+    transition: transform 0.3s ease;
+    /* Animation douce de la transformation */
+    cursor: pointer;
+    /* Indique que l'image est cliquable */
 }
 
 .img:hover {
-    transform: scale(1.1); /* Zoom sur l'image (agrandissement à 110%) */
+    transform: scale(1.1);
+    /* Zoom sur l'image (agrandissement à 110%) */
+}
+
+/* Définition des couleurs */
+:root {
+    --background-color: #E1D5C9;
+    /* Crème doux pour le fond */
+    --primary-color: #1F3A57;
+    /* Bleu marine pour les éléments principaux */
+    --secondary-color: #B49A6D;
+    /* Marron doré pour les accents et éléments secondaires */
+    --accent-color: #E4B97D;
+    /* Beige chaud pour les détails */
+    --text-color: #343434;
+    /* Gris très foncé pour le texte */
+}
+
+/* Application des couleurs */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--primary-color) !important;
+    color: #FFFFFF !important;
+}
+
+.navbar a {
+    color: #FFFFFF !important;
+}
+
+.navbar a:hover {
+    color: var(--accent-color) !important;
+}
+
+.navbar .dropdown-menu {
+    background-color: var(--primary-color) !important; 
+    border-color: var(--primary-color) !important;    
+    color: #FFFFFF !important;                        
+}
+
+
+.navbar .dropdown-item {
+    color: #FFFFFF !important; 
+}
+
+
+.navbar .dropdown-item:hover {
+    background-color: var(--accent-color) !important; 
+    color: var(--primary-color) !important;           
+}
+
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.card {
+    border: 1px solid var(--primary-color);
+    background-color: #FFFFFF;
+}
+
+.card-title {
+    color: var(--secondary-color);
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+.form-control {
+    border: 1px solid var(--secondary-color);
+    background-color: #FFFFFF;
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
 }

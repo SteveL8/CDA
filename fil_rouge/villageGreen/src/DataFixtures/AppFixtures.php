@@ -439,7 +439,7 @@ class AppFixtures extends Fixture
        ]
    ],
    [
-       'nom' => "À percussion",
+       'nom' => "Instruments à percussion",
        'image' => "img/r2.jpg",
        'sousRubriques' => [
            [
